@@ -59,7 +59,7 @@ class SoapCard extends HookConsumerWidget {
                         },
                         icon: const Icon(
                           CupertinoIcons.trash,
-                          color: alertRed,
+                          color: kAlertRed,
                         ))
                   ],
                 ),

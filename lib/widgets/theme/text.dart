@@ -7,6 +7,12 @@ const headText = TextStyle(
   color: kPrimaryBlack,
 );
 
+const inputText = TextStyle(
+    color: kSecondaryGray,
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 1.2);
+
 const bodyText1 = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w700,

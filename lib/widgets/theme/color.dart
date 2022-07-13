@@ -6,4 +6,4 @@ const kPrimaryBlack = Color(0xFF16253f);
 const kSecondaryGray = Color(0xFF4c4e67);
 const kPrimaryGreen = Color(0xFF2e9e8f);
 
-const alertRed = Color(0xFFdb2f29);
+const kAlertRed = Color(0xFFdb2f29);

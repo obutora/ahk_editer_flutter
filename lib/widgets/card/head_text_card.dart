@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
+import '../theme/color.dart';
 import '../theme/text.dart';
 
 class HeadTextCard extends StatelessWidget {

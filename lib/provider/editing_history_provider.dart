@@ -26,6 +26,14 @@ class EditingHistoryNotifier extends StateNotifier<DrugHistory> {
     }
   }
 
+  void hotString(String word) {
+    state = state.copyWith(hotString: word);
+  }
+
+  void clearHotString() {
+    state = state.copyWith(hotString: '');
+  }
+
   void removeSoap(String soapId) {
     state = state.copyWith(
         soapList: state.soapList.where((e) => e.id != soapId).toList());
