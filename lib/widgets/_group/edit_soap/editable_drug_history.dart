@@ -45,6 +45,7 @@ class EditableDrugHistory extends HookConsumerWidget {
         children: [
           FittedBox(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: SoapLabels.map((e) => Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: Row(

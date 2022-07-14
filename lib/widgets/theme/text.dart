@@ -13,6 +13,12 @@ const headText2 = TextStyle(
   color: kPrimaryBlack,
 );
 
+const headText3 = TextStyle(
+  fontSize: 20,
+  fontWeight: FontWeight.w800,
+  color: kSecondaryGray,
+);
+
 const inputText = TextStyle(
     color: kSecondaryGray,
     fontSize: 16,

@@ -1,26 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../theme/color.dart';
 import '../theme/text.dart';
 
 class HeadTextCard extends StatelessWidget {
-  const HeadTextCard({Key? key}) : super(key: key);
+  const HeadTextCard({Key? key, required this.title, required this.description})
+      : super(key: key);
+
+  final String title;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children: [
         Text(
-          'SOAP編集',
+          title,
           style: headText,
         ),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         FittedBox(
           child: Text(
-            '''自動入力するSOAPを設定することができます。SOAPの一部だけでもOKです。\n血圧が高くなった時、低くなった時などバリエーションを豊かにしておくと便利です。
-                        ''',
+            description,
             style: captionText1,
           ),
         ),

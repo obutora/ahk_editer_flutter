@@ -39,7 +39,12 @@ class SoapEditScreen extends ConsumerWidget {
                     child: ListView(
                       shrinkWrap: true,
                       children: [
-                        const HeadTextCard(),
+                        const HeadTextCard(
+                          title: 'SOAP編集',
+                          description:
+                              '''自動入力するSOAPを設定することができます。SOAPの一部だけでもOKです。\n血圧が高くなった時、低くなった時などバリエーションを豊かにしておくと便利です。
+                        ''',
+                        ),
                         const EditSoapInputSelecter(), //NOTE: SOAPのインプットをStateに応じて選択
                         const SizedBox(
                           height: 12,

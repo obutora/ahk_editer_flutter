@@ -1,5 +1,6 @@
 import 'package:ahk_editor_flutter/animation/fade.dart';
 import 'package:ahk_editor_flutter/screen/home_screen.dart';
+import 'package:ahk_editor_flutter/screen/output_screen.dart';
 import 'package:ahk_editor_flutter/screen/soap_edit_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -17,7 +18,7 @@ class Router extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final router = GoRouter(
-      initialLocation: '/edit',
+      initialLocation: '/',
       routes: [
         GoRoute(
           path: '/',
@@ -36,6 +37,15 @@ class Router extends StatelessWidget {
           pageBuilder: (context, state) => const MaterialPage(
             child: FadeAnimation(
               child: SoapEditScreen(),
+            ),
+          ),
+        ),
+        GoRoute(
+          name: 'output',
+          path: '/output',
+          pageBuilder: (context, state) => const MaterialPage(
+            child: FadeAnimation(
+              child: OutputScreen(),
             ),
           ),
         ),

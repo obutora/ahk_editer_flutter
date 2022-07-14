@@ -6,7 +6,7 @@ final routeIndexProvider =
 });
 
 class RouteIndexNotifier extends StateNotifier<int> {
-  RouteIndexNotifier() : super(1);
+  RouteIndexNotifier() : super(0);
 
   void change(int index) {
     state = index;

@@ -34,6 +34,13 @@ class NaviRail extends ConsumerWidget {
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8)),
           NavigationRailDestination(
               icon: Icon(
+                CupertinoIcons.tray_arrow_up_fill,
+                color: kPrimaryGreen,
+              ),
+              label: Text('output'),
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8)),
+          NavigationRailDestination(
+              icon: Icon(
                 CupertinoIcons.gear,
                 color: kPrimaryGreen,
               ),
@@ -50,6 +57,7 @@ class NaviRail extends ConsumerWidget {
               context.go('/edit');
               break;
             case 2:
+              context.go('/output');
               // Navigator.pushNamed(context, '/config');
               break;
           }
