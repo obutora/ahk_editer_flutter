@@ -1,7 +1,9 @@
+import 'package:ahk_editor_flutter/controller/file_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../provider/edit_step_provider.dart';
+import '../../../../provider/editing_history_provider.dart';
 import '../../../../screen/soap_edit_screen.dart';
 import '../../../editable_drug_history.dart';
 import '../../../theme/color.dart';
@@ -42,8 +44,27 @@ class EditSoapInputSelecter extends ConsumerWidget {
             ),
           ),
         );
+      case 2:
+        return const SaveSoapWidget();
       default:
         return const Text('error');
     }
+  }
+}
+
+class SaveSoapWidget extends ConsumerWidget {
+  const SaveSoapWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final editingHistory = ref.watch(editingHistoryProvider);
+
+    return ElevatedButton(
+        onPressed: () async {
+          FileController.saveDrugHistory(editingHistory);
+        },
+        child: const Text('保存する'));
   }
 }

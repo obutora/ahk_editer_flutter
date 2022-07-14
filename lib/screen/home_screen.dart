@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:ahk_editor_flutter/controller/file_controller.dart';
 import 'package:ahk_editor_flutter/widgets/navigation/navi_rail.dart';
 import 'package:ahk_editor_flutter/widgets/theme/material_theme.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -23,6 +25,39 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   const SizedBox(
                     height: 20,
+                  ),
+                  // ElevatedButton(
+                  //   child: const Text('read File'),
+                  //   onPressed: () async {
+                  //     FilePickerResult? picked = await FilePicker.platform
+                  //         .pickFiles(
+                  //             type: FileType.custom,
+                  //             allowedExtensions: ['json']);
+                  //     // print(picked);
+
+                  //     if (picked != null) {
+                  //       final history = await FileController.loadDrugHistory(
+                  //           picked.files.first.path!);
+                  //       print(history);
+                  //     }
+                  //   },
+                  // ),
+
+                  ElevatedButton(
+                    child: const Text('read All file'),
+                    onPressed: () async {
+                      String? settingDirPath =
+                          await FilePicker.platform.getDirectoryPath();
+
+                      if (settingDirPath!.isNotEmpty) {
+                        final historyList =
+                            await FileController.loadAllDrugHistory(
+                                settingDirPath);
+
+                        print(historyList.length);
+                        print(historyList);
+                      }
+                    },
                   ),
                   ElevatedButton(
                     child: const Text('実行用ファイルを作成する'),

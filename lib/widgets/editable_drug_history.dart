@@ -5,7 +5,6 @@ import 'package:ahk_editor_flutter/widgets/theme/color.dart';
 import 'package:ahk_editor_flutter/widgets/theme/input.dart';
 import 'package:ahk_editor_flutter/widgets/theme/text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -29,6 +28,7 @@ class EditableDrugHistory extends HookConsumerWidget {
 
     void addSoap() {
       setHistory.addSoap(Soap(
+        id: uuid.v4(),
         soap: selectedSoapCategory.value,
         body: textControleller.value.text,
       ));
@@ -44,35 +44,26 @@ class EditableDrugHistory extends HookConsumerWidget {
             child: Row(
               children: SoapLabels.map((e) => Padding(
                     padding: const EdgeInsets.only(right: 20),
-                    child: RawKeyboardListener(
-                      focusNode: FocusNode(),
-                      onKey: (event) async {
-                        if (event.runtimeType == RawKeyDownEvent) {
-                          print(
-                              'id: ${event.logicalKey.keyId}, label: ${event.logicalKey.keyLabel} debugName: ${event.logicalKey.debugName}');
-                        }
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Radio(
-                              value: e,
-                              activeColor: kPrimaryGreen,
-                              groupValue: selectedSoapCategory.value,
-                              onChanged: (e) {
-                                selectedSoapCategory.value = e.toString();
-                                focusNode.requestFocus();
-                              }),
-                          Text(
-                            e,
-                            style: Theme.of(context).textTheme.button!.copyWith(
-                                color: kPrimaryGreen,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 20,
-                                letterSpacing: 1.4),
-                          )
-                        ],
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Radio(
+                            value: e,
+                            activeColor: kPrimaryGreen,
+                            groupValue: selectedSoapCategory.value,
+                            onChanged: (e) {
+                              selectedSoapCategory.value = e.toString();
+                              focusNode.requestFocus();
+                            }),
+                        Text(
+                          e,
+                          style: Theme.of(context).textTheme.button!.copyWith(
+                              color: kPrimaryGreen,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20,
+                              letterSpacing: 1.4),
+                        )
+                      ],
                     ),
                   )).toList(),
             ),
