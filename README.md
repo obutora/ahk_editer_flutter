@@ -19,5 +19,5 @@ AutoHotKey 用のスクリプトおよび実行ファイルを、非エンジニ
 
 | type   | name | detail              |
 | ------ | ---- | ------------------- |
-| String | soap | S, O, A, EP, OP, CP |
+| String | soap | #, S, O, A, EP, OP, CP |
 | String | body |

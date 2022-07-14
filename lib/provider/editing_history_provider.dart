@@ -26,10 +26,6 @@ class EditingHistoryNotifier extends StateNotifier<DrugHistory> {
     }
   }
 
-  void hotString(String word) {
-    state = state.copyWith(hotString: word);
-  }
-
   void clearHotString() {
     state = state.copyWith(hotString: '');
   }
@@ -41,5 +37,15 @@ class EditingHistoryNotifier extends StateNotifier<DrugHistory> {
 
   void setHotString(String hotString) {
     state = state.copyWith(hotString: hotString);
+  }
+
+  void addGroup(String group) {
+    // {}で一度Setにしてから重複を削除している
+    state = state.copyWith(group: {...state.group, group}.toList());
+  }
+
+  void removeGroup(String group) {
+    state =
+        state.copyWith(group: state.group.where((e) => e != group).toList());
   }
 }

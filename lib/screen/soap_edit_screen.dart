@@ -1,6 +1,5 @@
 import 'package:ahk_editor_flutter/provider/editing_history_provider.dart';
 import 'package:ahk_editor_flutter/widgets/button/add_button.dart';
-import 'package:ahk_editor_flutter/widgets/card/head_text_card.dart';
 import 'package:ahk_editor_flutter/widgets/navigation/navi_rail.dart';
 import 'package:ahk_editor_flutter/widgets/theme/color.dart';
 import 'package:ahk_editor_flutter/widgets/theme/input.dart';
@@ -12,7 +11,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../provider/edit_step_provider.dart';
 import '../widgets/_group/edit_soap/selector/edit_soap_input_selector.dart';
-import '../widgets/card/soap_card.dart';
+import '../widgets/card/head_text_card.dart';
 
 class SoapEditScreen extends ConsumerWidget {
   const SoapEditScreen({Key? key}) : super(key: key);
@@ -26,43 +25,29 @@ class SoapEditScreen extends ConsumerWidget {
     return MaterialTheme(
       child: Scaffold(
         backgroundColor: Colors.white,
-        // floatingActionButton: FloatingActionButton(
-        //   backgroundColor: kPrimaryGreen,
-        //   child: Row(
-        //     children: const [
-        //       Icon(
-        //         CupertinoIcons.return_icon,
-        //         color: Colors.white,
-        //       ),
-        //       Text('data')
-        //     ],
-        //   ),
-        //   onPressed: () {},
-        // ),
         body: Stack(
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const NaviRail(),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const HeadTextCard(),
-                      const EditSoapInputSelecter(), //NOTE: SOAPのインプットをStateに応じて選択
-                      const SizedBox(height: 20),
-                      const SoapCard(),
-                      const SizedBox(
-                        height: 12,
-                      ),
-                      LimitedBox(
-                        maxWidth: MediaQuery.of(context).size.width / 1.6,
-                        child: Row(
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 28),
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: [
+                        const HeadTextCard(),
+                        const EditSoapInputSelecter(), //NOTE: SOAPのインプットをStateに応じて選択
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
+                            // NOTE : もどるボタンを表示する条件
                             editStepState != 0
                                 ? ElevatedButton.icon(
                                     onPressed: () {
@@ -74,20 +59,24 @@ class SoapEditScreen extends ConsumerWidget {
                                   )
                                 : const SizedBox(),
                             const Spacer(),
-                            ElevatedButton.icon(
-                              onPressed: () {
-                                setEditStep.next();
-                              },
-                              icon: const Icon(CupertinoIcons.right_chevron),
-                              label: const Text('次にすすむ'),
-                            ),
+                            // NOTE: 進むボタンを表示する条件
+                            editStepState < 2
+                                ? ElevatedButton.icon(
+                                    onPressed: () {
+                                      setEditStep.next();
+                                    },
+                                    icon: const Icon(
+                                        CupertinoIcons.right_chevron),
+                                    label: const Text('次にすすむ'),
+                                  )
+                                : const SizedBox(),
                           ],
                         ),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                    ],
+                        const SizedBox(
+                          height: 40,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -162,7 +151,7 @@ class AddDrugHistoryHotKey extends ConsumerWidget {
                   onPressed: () {
                     //NOTE : HotKeyが入力されていないときはSet,入力されているときはClear、
                     drugHistory.hotString.isEmpty
-                        ? setDrugHistory.hotString(controller.text)
+                        ? setDrugHistory.setHotString(controller.text)
                         : setDrugHistory.clearHotString();
                   })
             ],
@@ -178,36 +167,45 @@ class AddDrugHistoryGroup extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return LimitedBox(
-      maxWidth: MediaQuery.of(context).size.width / 1.6,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 12),
-          Text(
-            'この薬歴のグループを入力してください。',
-            style: bodyText1.copyWith(color: kSecondaryGray),
-          ),
-          const SizedBox(height: 8),
-          const Text(
-            '薬歴にグループを設定すると、一覧画面でグループ分けした薬歴を見れます。\n血圧の薬歴をグループにしたい場合は「血圧」と入力してください。\nグループがなくても登録は可能です。（*非推奨）',
-            style: captionText1,
-          ),
-          const SizedBox(height: 20),
-          Row(
-            children: [
-              Flexible(
-                child: TextField(
-                  decoration: StandardInputDecoration('例) 血圧'),
-                  style: inputText,
-                ),
+    final editingHistoryState = ref.watch(editingHistoryProvider);
+    final setHistory = ref.watch(editingHistoryProvider.notifier);
+
+    final controller = TextEditingController();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 12),
+        Text(
+          'この薬歴のグループを入力してください。',
+          style: bodyText1.copyWith(color: kSecondaryGray),
+        ),
+        const SizedBox(height: 8),
+        const Text(
+          '薬歴にグループを設定すると、一覧画面でグループ分けした薬歴を見れます。\n血圧の薬歴をグループにしたい場合は「血圧」と入力してください。\nグループがなくても登録は可能です。（*非推奨）',
+          style: captionText1,
+        ),
+        const SizedBox(height: 20),
+        Row(
+          children: [
+            Flexible(
+              child: TextField(
+                controller: controller,
+                decoration: StandardInputDecoration('例) 血圧'),
+                style: inputText,
               ),
-              const SizedBox(width: 8),
-              AddButton(icon: CupertinoIcons.check_mark, onPressed: () {})
-            ],
-          )
-        ],
-      ),
+            ),
+            const SizedBox(width: 8),
+            AddButton(
+                icon: CupertinoIcons.check_mark,
+                onPressed: () {
+                  if (controller.text.isNotEmpty) {
+                    setHistory.addGroup(controller.text);
+                  }
+                })
+          ],
+        ),
+      ],
     );
   }
 }

@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../card/soap_card.dart';
+
 class EditableDrugHistory extends HookConsumerWidget {
   const EditableDrugHistory({
     Key? key,
@@ -39,6 +41,7 @@ class EditableDrugHistory extends HookConsumerWidget {
     return LimitedBox(
       maxWidth: MediaQuery.of(context).size.width / 1.6,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           FittedBox(
             child: Row(
@@ -71,28 +74,27 @@ class EditableDrugHistory extends HookConsumerWidget {
           const SizedBox(
             height: 12,
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 0),
-            child: Row(
-              children: [
-                Flexible(
-                  child: TextField(
-                      focusNode: focusNode,
-                      controller: textControleller,
-                      decoration: StandardInputDecoration('SOAPを選んで入力してください'),
-                      // maxLines: null,
-                      style: inputText,
-                      onSubmitted: (value) {
-                        addSoap();
-                      }),
-                ),
-                const SizedBox(width: 8),
-                AddButton(
-                  onPressed: () => addSoap(),
-                ),
-              ],
-            ),
+          Row(
+            children: [
+              Flexible(
+                child: TextField(
+                    focusNode: focusNode,
+                    controller: textControleller,
+                    decoration: StandardInputDecoration('SOAPを選んで入力してください'),
+                    // maxLines: null,
+                    style: inputText,
+                    onSubmitted: (value) {
+                      addSoap();
+                    }),
+              ),
+              const SizedBox(width: 8),
+              AddButton(
+                onPressed: () => addSoap(),
+              ),
+            ],
           ),
+          const SizedBox(height: 20),
+          const SoapCard(),
         ],
       ),
     );
