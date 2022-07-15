@@ -16,9 +16,31 @@ class PathController {
     return settingDirPath;
   }
 
-  static Future<String> getSaveFilePath(String fileName) async {
+  static Future<String> getOutputDir() async {
+    final String current = Directory.current.path;
+    final String settingDirPath = p.join(current, 'output');
+
+    return settingDirPath;
+  }
+
+  static Future<String> getSaveJsonFilePath(String fileName) async {
     final String dir = await getSettingDir();
     final String filePath = p.join(dir, '$fileName.json');
+
+    return filePath;
+  }
+
+  // NOTE: ahkファイルは中間ファイルのため、固定の名前( output.ahk )にして変更できないようにする
+  static Future<String> getAhkFilePath() async {
+    final String dir = await getOutputDir();
+    final String filePath = p.join(dir, 'output.ahk');
+
+    return filePath;
+  }
+
+  static Future<String> getExeFilePath() async {
+    final String dir = await getOutputDir();
+    final String filePath = p.join(dir, 'output.exe');
 
     return filePath;
   }

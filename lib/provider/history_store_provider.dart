@@ -15,4 +15,8 @@ class HistoryStoreNotifier extends StateNotifier<List<DrugHistory>> {
     print(state.length);
     print(state.map((e) => e.soapList).toList());
   }
+
+  void remove(DrugHistory history) {
+    state = state.where((e) => e.id != history.id).toList();
+  }
 }

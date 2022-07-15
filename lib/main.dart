@@ -24,9 +24,12 @@ class Router extends StatelessWidget {
           path: '/',
           name: 'home',
           pageBuilder: (context, state) => const MaterialPage(
-            child: FadeAnimation(
-              // moveDirection: MoveDirection.topIn,
-              child: HomeScreen(),
+            child: Scaffold(
+              backgroundColor: Colors.white,
+              body: FadeAnimation(
+                // moveDirection: MoveDirection.topIn,
+                child: HomeScreen(),
+              ),
             ),
           ),
           // builder: (context, state) => const HomeScreen(),
@@ -35,8 +38,11 @@ class Router extends StatelessWidget {
           name: 'edit',
           path: '/edit',
           pageBuilder: (context, state) => const MaterialPage(
-            child: FadeAnimation(
-              child: SoapEditScreen(),
+            child: Scaffold(
+              backgroundColor: Colors.white,
+              body: FadeAnimation(
+                child: SoapEditScreen(),
+              ),
             ),
           ),
         ),
@@ -44,8 +50,11 @@ class Router extends StatelessWidget {
           name: 'output',
           path: '/output',
           pageBuilder: (context, state) => const MaterialPage(
-            child: FadeAnimation(
-              child: OutputScreen(),
+            child: Scaffold(
+              backgroundColor: Colors.white,
+              body: FadeAnimation(
+                child: OutputScreen(),
+              ),
             ),
           ),
         ),

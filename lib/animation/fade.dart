@@ -5,7 +5,7 @@ class FadeAnimation extends StatelessWidget {
   const FadeAnimation({
     Key? key,
     required this.child,
-    this.durationInMilliseconds = 600,
+    this.durationInMilliseconds = 1200,
     this.curve = Curves.easeOutCirc,
     this.delayInMilliseconds = 0,
     this.control = CustomAnimationControl.playFromStart,

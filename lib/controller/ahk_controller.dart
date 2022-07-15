@@ -11,11 +11,50 @@
 //   print(result);
 // }
 
+import 'dart:io';
+
+import 'package:ahk_editor_flutter/controller/path_controller.dart';
 import 'package:ahk_editor_flutter/entity/drug_history.dart';
 import 'package:ahk_editor_flutter/entity/soap.dart';
 
 class AhkController {
-  String historyToAhkString(DrugHistory history) {
+  //NOTE : コンパイル
+  // NOTE : http://ahkwiki.net/Usage
+  static Future<bool> generateAhkExe() async {
+    final result = await Process.run('./ahk/Ahk2Exe.exe', [
+      '/in',
+      await PathController.getAhkFilePath(),
+      '/out',
+      await PathController.getExeFilePath(),
+      '/bin',
+      './ahk/test.bin',
+    ]);
+    print(result.stdout);
+
+    if (result.stdout.toString().contains('Successfully')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static String historyListToAhkString(List<DrugHistory> historyList) {
+    final buffer = StringBuffer();
+    const sep = '\n\n';
+
+    List<String> ahkStringList = [];
+
+    for (final history in historyList) {
+      final String ahkString = historyToAhkString(history);
+      ahkStringList.add(ahkString);
+    }
+
+    buffer.writeAll([...ahkStringList, ahkTail], sep);
+
+    return buffer.toString();
+  }
+
+  static String historyToAhkString(DrugHistory history) {
     List<String> soapTextList = [];
     const String sep = '\n';
 
@@ -34,17 +73,28 @@ class AhkController {
   }
 
   //NOTE: FnキーによるmusubiのSOAP選択と、textBodyを生成するメソッド
-  String soapToString(String soap, String text) {
+  static String soapToString(String soap, String text) {
+    // ignore: constant_identifier_names
+    const String soap_Problem_Text = 'send, {F8}'; // #問
+    // ignore: constant_identifier_names
     const String soap_S_Text = 'send, {F1}'; // #問
+    // ignore: constant_identifier_names
     const String soap_O_Text = 'send, {F2}';
+    // ignore: constant_identifier_names
     const String soap_A_Text = 'send, {F3}';
+    // ignore: constant_identifier_names
     const String soap_EP_Text = 'send, {F4}';
+    // ignore: constant_identifier_names
     const String soap_CP_Text = 'send, {F5}';
+    // ignore: constant_identifier_names
     const String soap_OP_Text = 'send, {F6}';
 
     late String headText;
 
     switch (soap) {
+      case '#':
+        headText = soap_Problem_Text;
+        break;
       case 'S':
         headText = soap_S_Text;
         break;
@@ -68,13 +118,13 @@ class AhkController {
     }
 
     final String bodyText = 'print("$text")';
-    final String concat = headText + '\n' + bodyText;
+    final String concat = '$headText\n$bodyText';
 
     return concat;
   }
 
 // ホットキーとreturnでbodyTextを挟むためのメソッド
-  String finalizeSoapString(String hotString, String body) {
+  static String finalizeSoapString(String hotString, String body) {
     final String head = '::$hotString::';
     const String tail = 'return';
 
