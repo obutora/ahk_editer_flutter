@@ -11,7 +11,28 @@
 //   print(result);
 // }
 
+import 'package:ahk_editor_flutter/entity/drug_history.dart';
+import 'package:ahk_editor_flutter/entity/soap.dart';
+
 class AhkController {
+  String historyToAhkString(DrugHistory history) {
+    List<String> soapTextList = [];
+    const String sep = '\n';
+
+    for (Soap soap in history.soapList) {
+      final String bodyText = soapToString(soap.soap, soap.body);
+      soapTextList.add(bodyText);
+    }
+
+    //TODO: 未検証
+    final bodyBuffer = StringBuffer();
+    bodyBuffer.writeAll(soapTextList, sep);
+    final body = bodyBuffer.toString();
+
+    final historyAhkString = finalizeSoapString(history.hotString, body);
+    return historyAhkString;
+  }
+
   //NOTE: FnキーによるmusubiのSOAP選択と、textBodyを生成するメソッド
   String soapToString(String soap, String text) {
     const String soap_S_Text = 'send, {F1}'; // #問
@@ -64,4 +85,17 @@ class AhkController {
 
     return buffer.toString();
   }
+
+  static const String ahkTail = '''print(str)    {
+sleep,100
+backup := ClipboardAll
+Clipboard = %str%
+sleep, 50
+send, ^v
+sleep,100
+send, {Enter 1}
+Clipboard := backup
+sleep,100
+return
+}''';
 }
