@@ -88,7 +88,7 @@ class OutputScreen extends ConsumerWidget {
                                 title: const Text('AlertDialog'),
                                 content: Text(result.stdout),
                                 actions: <Widget>[
-                                  FlatButton(
+                                  ElevatedButton(
                                     child: const Text('OK'),
                                     onPressed: () {
                                       Navigator.of(context).pop();
