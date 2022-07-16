@@ -1,3 +1,4 @@
+import 'package:ahk_editor_flutter/entity/drug_history.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final editStepProvider = StateNotifierProvider<EditStepNotifier, int>((ref) {
@@ -15,11 +16,29 @@ class EditStepNotifier extends StateNotifier<int> {
     state = 0;
   }
 
-  void next() {
-    state++;
+  void next(DrugHistory history) {
+    switch (state) {
+      case 0:
+        if (history.soapList.isNotEmpty) {
+          state++;
+        }
+        break;
+      case 1:
+        if (history.hotString.isNotEmpty) {
+          state++;
+        }
+        break;
+    }
+    // state++;
   }
 
   void back() {
     state--;
   }
 }
+
+// final editStepControllerProvider = Provider<int>(((ref) {
+//   final editStep = ref.watch(editStepProvider);
+
+
+// });

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../controller/file_controller.dart';
+import '../../../provider/edit_step_provider.dart';
 import '../../../provider/editing_history_provider.dart';
 import '../../button/group_tag.dart';
 import '../../card/soap_card.dart';
@@ -16,6 +17,8 @@ class SaveSoapWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final editingHistory = ref.watch(editingHistoryProvider);
+    final setEditState = ref.watch(editingHistoryProvider.notifier);
+    final setEditStep = ref.watch(editStepProvider.notifier);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,6 +52,8 @@ class SaveSoapWidget extends ConsumerWidget {
                     style: ElevatedButton.styleFrom(primary: kPrimaryGreen),
                     onPressed: () async {
                       FileController.saveDrugHistory(editingHistory);
+                      setEditState.clear();
+                      setEditStep.clear();
                     },
                     child: Text('保存する',
                         style: inputText.copyWith(color: Colors.white))),
