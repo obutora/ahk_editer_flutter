@@ -4,7 +4,6 @@ import 'package:ahk_editor_flutter/widgets/navigation/navi_rail.dart';
 import 'package:ahk_editor_flutter/widgets/theme/color.dart';
 import 'package:ahk_editor_flutter/widgets/theme/material_theme.dart';
 import 'package:ahk_editor_flutter/widgets/theme/text.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -58,16 +57,11 @@ class HomeScreen extends ConsumerWidget {
                   ElevatedButton(
                     child: const Text('設定ファイルを読み込む'),
                     onPressed: () async {
-                      String? settingDirPath =
-                          await FilePicker.platform.getDirectoryPath();
+                      //NOTE: 設定ファイルを読み込んでStateに設定
+                      final historyList =
+                          await FileController.loadAllDrugHistory();
 
-                      if (settingDirPath!.isNotEmpty) {
-                        final historyList =
-                            await FileController.loadAllDrugHistory(
-                                settingDirPath);
-
-                        setHistoryStore.init(historyList);
-                      }
+                      setHistoryStore.init(historyList);
                     },
                   ),
                 ],

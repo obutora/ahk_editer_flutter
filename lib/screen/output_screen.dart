@@ -21,14 +21,6 @@ class OutputScreen extends ConsumerWidget {
     final setHistoryStore = ref.watch(historyStoreProvider.notifier);
     final historyStore = ref.watch(historyStoreProvider);
 
-    String stateString() {
-      if (historyStore.isEmpty) {
-        return '設定ファイルが読み込まれていません。';
-      } else {
-        return '${historyStore.length} 個の薬歴が読み込まれています。';
-      }
-    }
-
     return MaterialTheme(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -170,7 +162,9 @@ class OutputScreen extends ConsumerWidget {
                                     CupertinoIcons.xmark_circle,
                                     color: kAlertRed,
                                   ),
-                                  onPressed: () {
+                                  onPressed: () async {
+                                    await FileController.deleteJson(history);
+
                                     setHistoryStore.remove(history);
                                   },
                                 ),

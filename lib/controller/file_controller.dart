@@ -13,7 +13,13 @@ class FileController {
     final File file = File(dir);
     await file.writeAsString(json);
 
-    print('saveDrugHistory: $dir');
+    // print('saveDrugHistory: $dir');
+  }
+
+  static deleteJson(DrugHistory history) async {
+    final Directory dir =
+        Directory(await PathController.getSaveJsonFilePath(history.id));
+    dir.deleteSync(recursive: true);
   }
 
   //
@@ -25,7 +31,7 @@ class FileController {
     final encoded = await CharsetConverter.encode("Shift_JIS", ahkBody);
     await file.writeAsBytes(encoded);
 
-    print('saveAhk: $dir');
+    // print('saveAhk: $dir');
   }
 
   static Future<DrugHistory> loadDrugHistory(String path) async {
@@ -36,8 +42,9 @@ class FileController {
     return history;
   }
 
-  static Future<List<DrugHistory>> loadAllDrugHistory(String dirPath) async {
-    final Directory dir = Directory(dirPath);
+  static Future<List<DrugHistory>> loadAllDrugHistory() async {
+    // final Directory dir = Directory(dirPath);
+    final Directory dir = Directory(PathController.getSettingDir());
     final List<FileSystemEntity> files = await dir.list().toList();
     final List<DrugHistory> histories = [];
     for (final FileSystemEntity entity in files) {

@@ -9,8 +9,8 @@ class PathController {
     return dir.path;
   }
 
-  static Future<String> getSettingDir() async {
-    final String current = await getCurrentDir();
+  static String getSettingDir() {
+    final String current = Directory.current.path;
     final String settingDirPath = p.join(current, 'setting');
 
     return settingDirPath;
@@ -24,7 +24,7 @@ class PathController {
   }
 
   static Future<String> getSaveJsonFilePath(String fileName) async {
-    final String dir = await getSettingDir();
+    final String dir = getSettingDir();
     final String filePath = p.join(dir, '$fileName.json');
 
     return filePath;
