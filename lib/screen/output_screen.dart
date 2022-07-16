@@ -113,7 +113,7 @@ class OutputScreen extends ConsumerWidget {
                       style: headText2.copyWith(color: kSecondaryGray),
                     ),
                     Text(
-                      '実行用ファイルには、現在読み込まれている以下のデータが含まれます。',
+                      '実行用ファイルには、現在読み込まれている以下のデータが含まれます。\n実行用ファイル作成後に実行すると、ホットキーを押してスペースを押すと、自動でデータが入力されます。',
                       style: captionText1.copyWith(color: kSecondaryGray),
                     ),
                     const SizedBox(height: 20),

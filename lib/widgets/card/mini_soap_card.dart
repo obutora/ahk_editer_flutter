@@ -17,6 +17,10 @@ class MiniSoapCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Text(
+          'ホットキー',
+          style: captionText1.copyWith(color: kSecondaryGray),
+        ),
         Text(history.hotString, style: headText3),
         const SizedBox(
           height: 12,
