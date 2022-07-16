@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../controller/file_controller.dart';
 import '../../../provider/edit_step_provider.dart';
 import '../../../provider/editing_history_provider.dart';
+import '../../../provider/history_store_provider.dart';
 import '../../button/group_tag.dart';
 import '../../card/soap_card.dart';
 import '../../theme/color.dart';
@@ -19,6 +20,7 @@ class SaveSoapWidget extends ConsumerWidget {
     final editingHistory = ref.watch(editingHistoryProvider);
     final setEditState = ref.watch(editingHistoryProvider.notifier);
     final setEditStep = ref.watch(editStepProvider.notifier);
+    final setHistoryStore = ref.watch(historyStoreProvider.notifier);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,9 +53,14 @@ class SaveSoapWidget extends ConsumerWidget {
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(primary: kPrimaryGreen),
                     onPressed: () async {
+                      //NOTE: 薬歴をセーブした後、Stateにも追加する
                       FileController.saveDrugHistory(editingHistory);
+                      setHistoryStore.add(editingHistory);
+
                       setEditState.clear();
                       setEditStep.clear();
+
+                      //NOTE:再読み込みここから
                     },
                     child: Text('保存する',
                         style: inputText.copyWith(color: Colors.white))),

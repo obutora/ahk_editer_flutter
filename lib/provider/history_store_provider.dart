@@ -12,8 +12,12 @@ class HistoryStoreNotifier extends StateNotifier<List<DrugHistory>> {
   void init(List<DrugHistory> value) async {
     state = value;
 
-    print(state.length);
-    print(state.map((e) => e.soapList).toList());
+    // print(state.length);
+    // print(state.map((e) => e.soapList).toList());
+  }
+
+  void add(DrugHistory history) {
+    state = [...state, history];
   }
 
   void remove(DrugHistory history) {

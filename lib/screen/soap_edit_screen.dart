@@ -69,7 +69,8 @@ class SoapEditScreen extends ConsumerWidget {
                             editStepState < 2
                                 ? ElevatedButton.icon(
                                     onPressed: () {
-                                      setEditStep.next(editingHistoryState);
+                                      setEditStep.next(
+                                          editingHistoryState, context);
                                     },
                                     icon: const Icon(
                                         CupertinoIcons.right_chevron),
