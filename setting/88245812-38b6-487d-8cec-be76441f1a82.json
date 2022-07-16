@@ -1,12 +1,1 @@
-{
-    "id": "88245812-38b6-487d-8cec-be76441f1a82",
-    "group": [],
-    "hotString": "@b1",
-    "soapList": [
-        {
-            "id": "bfa53195-00c3-402f-b588-a2ad2ea917a7",
-            "soap": "S",
-            "body": "これでしっかり打てるかどうかを確認"
-        }
-    ]
-}
+{"id":"88245812-38b6-487d-8cec-be76441f1a82","group":[],"hotString":"@b1","soapList":[{"id":"bfa53195-00c3-402f-b588-a2ad2ea917a7","soap":"S","body":"これでしっかり打てるかどうかを確認"},{"id":"3ed1025f-68c9-4978-b781-43173fd7de8e","soap":"O","body":"tuika "}]}

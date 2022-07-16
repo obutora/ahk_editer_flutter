@@ -8,7 +8,8 @@ import 'package:charset_converter/charset_converter.dart';
 class FileController {
   // NOTE : historyのIdをファイル名として保存
   static Future<void> saveDrugHistory(DrugHistory history) async {
-    final String dir = await PathController.getSaveJsonFilePath(history.id);
+    final String dir =
+        await PathController.getSaveJsonFilePath(history.hotString);
     final String json = jsonEncode(history);
     final File file = File(dir);
     await file.writeAsString(json);

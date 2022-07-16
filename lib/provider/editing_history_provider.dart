@@ -20,6 +20,10 @@ class EditingHistoryNotifier extends StateNotifier<DrugHistory> {
     state = DrugHistory(id: uuid.v4(), group: [], hotString: '', soapList: []);
   }
 
+  void setHistory(DrugHistory history) {
+    state = history;
+  }
+
   void addSoap(Soap soap) {
     if (soap.body.isNotEmpty) {
       state = state.copyWith(soapList: [...state.soapList, soap]);

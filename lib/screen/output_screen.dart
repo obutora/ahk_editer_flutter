@@ -5,12 +5,15 @@ import 'package:ahk_editor_flutter/widgets/theme/material_theme.dart';
 import 'package:ahk_editor_flutter/widgets/theme/text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../controller/ahk_controller.dart';
 import '../controller/file_controller.dart';
 import '../entity/drug_history.dart';
+import '../provider/editing_history_provider.dart';
 import '../provider/history_store_provider.dart';
+import '../provider/route_index_provider.dart';
 import '../widgets/dialog/success_failed_dialog.dart';
 
 class OutputScreen extends ConsumerWidget {
@@ -110,14 +113,14 @@ class OutputScreen extends ConsumerWidget {
                       // crossAxisAlignment: CrossAxisAlignment.start,
                       children: historyStore.map((DrugHistory history) {
                         return Container(
-                          width: MediaQuery.of(context).size.width / 4,
+                          width: MediaQuery.of(context).size.width,
                           margin: const EdgeInsets.only(bottom: 4),
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 12),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
-                                color: kPrimaryGreen.withOpacity(0.16)),
+                                color: kSecondaryGray.withOpacity(0.16)),
                             // color: kPrimaryGreen.withOpacity(0.16),
                           ),
                           child: Stack(
@@ -158,18 +161,28 @@ class OutputScreen extends ConsumerWidget {
                               ),
                               Positioned(
                                 right: 0,
-                                top: 0,
-                                child: IconButton(
-                                  icon: const Icon(
-                                    CupertinoIcons.xmark_circle,
-                                    color: kAlertRed,
-                                  ),
-                                  onPressed: () async {
-                                    await FileController.deleteJson(history);
-
-                                    setHistoryStore.remove(history);
-                                  },
+                                top: 8,
+                                child: SoapCardPopupMenuButton(
+                                  history: history,
                                 ),
+                                // child: IconButton(
+                                //   icon: const Icon(
+                                //     CupertinoIcons.line_horizontal_3,
+                                //     color: kPrimaryGreen,
+                                //   ),
+                                //   onPressed: () {},
+                                // ),
+                                // child: IconButton(
+                                //   icon: const Icon(
+                                //     CupertinoIcons.xmark_circle,
+                                //     color: kAlertRed,
+                                //   ),
+                                // onPressed: () async {
+                                //   await FileController.deleteJson(history);
+
+                                //   setHistoryStore.remove(history);
+                                // },
+                                // ),
                               ),
                             ],
                           ),
@@ -183,6 +196,73 @@ class OutputScreen extends ConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class SoapCardPopupMenuButton extends ConsumerWidget {
+  const SoapCardPopupMenuButton({
+    Key? key,
+    required this.history,
+  }) : super(key: key);
+
+  final DrugHistory history;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final setHistoryStore = ref.watch(historyStoreProvider.notifier);
+    final setEditingHistory = ref.watch(editingHistoryProvider.notifier);
+    final setNav = ref.watch(routeIndexProvider.notifier);
+
+    return PopupMenuButton(
+      // color: kPrimaryGreen.withOpacity(0.16),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: BorderSide(width: 3, color: kPrimaryGreen.withOpacity(0.84))),
+      child: const Icon(
+        CupertinoIcons.ellipsis_vertical,
+        color: kSecondaryGray,
+      ),
+      itemBuilder: (context) {
+        return [
+          PopupMenuItem(
+            value: 'edit',
+            child: Row(
+              children: [
+                const Icon(CupertinoIcons.pencil, color: kPrimaryGreen),
+                const SizedBox(width: 8),
+                Text(
+                  '編集',
+                  style: bodyText2.copyWith(color: kSecondaryGray),
+                ),
+              ],
+            ),
+            onTap: () async {
+              setEditingHistory.setHistory(history);
+              setNav.change(1);
+              context.go('/edit');
+            },
+          ),
+          PopupMenuItem(
+            value: 'delete',
+            child: Row(
+              children: [
+                const Icon(CupertinoIcons.trash, color: kAlertRed),
+                const SizedBox(width: 8),
+                Text(
+                  '削除',
+                  style: bodyText2.copyWith(color: kAlertRed),
+                ),
+              ],
+            ),
+            onTap: () async {
+              await FileController.deleteJson(history);
+
+              setHistoryStore.remove(history);
+            },
+          ),
+        ];
+      },
     );
   }
 }
