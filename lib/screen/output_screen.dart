@@ -39,7 +39,7 @@ class OutputScreen extends ConsumerWidget {
                   children: [
                     const HeadTextCard(
                         title: '実行用ファイルを出力します',
-                        description: '''薬歴入力用の実行用ファイルを出力できます。'''),
+                        description: '''薬歴/トレース入力用の実行用ファイルを出力できます。'''),
                     const SizedBox(height: 24),
                     Row(
                       children: [
@@ -138,7 +138,9 @@ class OutputScreen extends ConsumerWidget {
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           CircleAvatar(
-                                            backgroundColor: kPrimaryGreen,
+                                            backgroundColor: soap.soap != 'ト'
+                                                ? kPrimaryGreen
+                                                : kInfoBlue,
                                             radius: 16,
                                             child: Text(soap.soap,
                                                 style: bodyText1.copyWith(

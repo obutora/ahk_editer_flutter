@@ -19,7 +19,7 @@ class EditableDrugHistory extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedSoapCategory = useState<String>('S');
+    final selectedSoapCategory = useState<String>('#');
     final textControleller = TextEditingController(
       text: '',
     );

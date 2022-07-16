@@ -117,7 +117,8 @@ class AhkController {
         headText = '';
     }
 
-    final String bodyText = 'print("$text")';
+    final String returnText = text.replaceAll('\n', '`n');
+    final String bodyText = 'print("$returnText")';
     final String concat = '$headText\n$bodyText';
 
     return concat;

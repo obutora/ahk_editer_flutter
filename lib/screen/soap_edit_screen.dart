@@ -40,13 +40,20 @@ class SoapEditScreen extends ConsumerWidget {
                     child: ListView(
                       shrinkWrap: true,
                       children: [
-                        const HeadTextCard(
-                          title: 'SOAP編集',
-                          description:
-                              '''自動入力するSOAPを設定することができます。SOAPの一部だけでもOKです。\n血圧が高くなった時、低くなった時などバリエーションを豊かにしておくと便利です。
+                        editStepState.isSoap
+                            ? const HeadTextCard(
+                                title: 'SOAP編集',
+                                description:
+                                    '''自動入力するSOAPを設定することができます。SOAPの一部だけでもOKです。\n血圧が高くなった時、低くなった時などバリエーションを豊かにしておくと便利です。
                         ''',
-                        ),
-                        const EditSoapInputSelecter(), //NOTE: SOAPのインプットをStateに応じて選択
+                                isWithButton: true,
+                              )
+                            : const HeadTextCard(
+                                title: 'トレース編集',
+                                description: 'トレースを編集することができます。',
+                                isWithButton: true,
+                              ),
+                        const EditSelecter(), //NOTE: SOAPのインプットをStateに応じて選択
                         const SizedBox(
                           height: 12,
                         ),
@@ -54,7 +61,7 @@ class SoapEditScreen extends ConsumerWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             // NOTE : もどるボタンを表示する条件
-                            editStepState != 0
+                            editStepState.step != 0
                                 ? ElevatedButton.icon(
                                     onPressed: () {
                                       setEditStep.back();
@@ -66,7 +73,7 @@ class SoapEditScreen extends ConsumerWidget {
                                 : const SizedBox(),
                             const Spacer(),
                             // NOTE: 進むボタンを表示する条件
-                            editStepState < 2
+                            editStepState.step < 2
                                 ? ElevatedButton.icon(
                                     onPressed: () {
                                       setEditStep.next(
