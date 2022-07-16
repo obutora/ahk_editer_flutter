@@ -14,6 +14,7 @@ import '../entity/drug_history.dart';
 import '../provider/editing_history_provider.dart';
 import '../provider/history_store_provider.dart';
 import '../provider/route_index_provider.dart';
+import '../widgets/card/mini_soap_card.dart';
 import '../widgets/dialog/success_failed_dialog.dart';
 
 class OutputScreen extends ConsumerWidget {
@@ -107,6 +108,15 @@ class OutputScreen extends ConsumerWidget {
                       color: kSecondaryGray,
                     ),
                     const SizedBox(height: 20),
+                    Text(
+                      '現在のデータ',
+                      style: headText2.copyWith(color: kSecondaryGray),
+                    ),
+                    Text(
+                      '実行用ファイルには、現在読み込まれている以下のデータが含まれます。',
+                      style: captionText1.copyWith(color: kSecondaryGray),
+                    ),
+                    const SizedBox(height: 20),
                     Wrap(
                       spacing: 12,
                       runSpacing: 8,
@@ -125,40 +135,7 @@ class OutputScreen extends ConsumerWidget {
                           ),
                           child: Stack(
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(history.hotString, style: headText3),
-                                  const SizedBox(
-                                    height: 12,
-                                  ),
-                                  ...history.soapList.map((soap) {
-                                    return Padding(
-                                      padding: const EdgeInsets.only(bottom: 4),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          CircleAvatar(
-                                            backgroundColor: soap.soap != 'ト'
-                                                ? kPrimaryGreen
-                                                : kInfoBlue,
-                                            radius: 16,
-                                            child: Text(soap.soap,
-                                                style: bodyText1.copyWith(
-                                                    color: Colors.white)),
-                                          ),
-                                          const SizedBox(width: 8),
-                                          Flexible(
-                                              child: Text(soap.body,
-                                                  style: bodyText2)),
-                                        ],
-                                      ),
-                                    );
-                                  }).toList(),
-                                ],
-                              ),
+                              MiniSoapCard(history: history),
                               Positioned(
                                 right: 0,
                                 top: 8,

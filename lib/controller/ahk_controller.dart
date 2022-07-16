@@ -23,9 +23,9 @@ class AhkController {
   static Future<bool> generateAhkExe() async {
     final result = await Process.run('./ahk/Ahk2Exe.exe', [
       '/in',
-      await PathController.getAhkFilePath(),
+      PathController.getAhkFilePath(),
       '/out',
-      await PathController.getExeFilePath(),
+      PathController.getExeFilePath(),
       '/bin',
       './ahk/test.bin',
     ]);

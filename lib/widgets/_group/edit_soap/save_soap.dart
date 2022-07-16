@@ -1,3 +1,5 @@
+import 'package:ahk_editor_flutter/entity/drug_history.dart';
+import 'package:ahk_editor_flutter/widgets/dialog/double_hotstring_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -53,14 +55,42 @@ class SaveSoapWidget extends ConsumerWidget {
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(primary: kPrimaryGreen),
                     onPressed: () async {
-                      //NOTE: 薬歴をセーブした後、Stateにも追加する
-                      FileController.saveDrugHistory(editingHistory);
-                      setHistoryStore.add(editingHistory);
+                      final bool isExistFromId =
+                          setHistoryStore.isExistFromId(editingHistory.id);
+                      final bool isExistFromHotString = setHistoryStore
+                          .isExistFromHotString(editingHistory.hotString);
 
-                      setEditState.clear();
-                      setEditStep.clear();
+                      //NOTE : idで重複がないか確認。重複がある場合は、過去のjsonを削除し、新しいjsonを保存する。
+                      //該当の.jsonのファイル名 = {hotSring}.jsonを削除し、新しいjsonを保存する。
+                      if (isExistFromId) {
+                        final DrugHistory pastHistory =
+                            setHistoryStore.getHistoryFromId(editingHistory.id);
 
-                      //NOTE:再読み込みここから
+                        //json削除
+                        await FileController.deleteJson(pastHistory);
+
+                        //State削除
+                        setHistoryStore.remove(pastHistory);
+
+                        //State追加、json保存, stepとStateのクリア
+                        FileController.saveDrugHistory(editingHistory);
+                        setHistoryStore.add(editingHistory);
+
+                        setEditState.clear();
+                        setEditStep.clear();
+                      } else if (isExistFromHotString) {
+                        //
+                        doubleHotstringDialog(context, ref);
+                      } else {
+                        //NOTE: 薬歴をセーブした後、Stateにも追加する
+                        FileController.saveDrugHistory(editingHistory);
+                        setHistoryStore.add(editingHistory);
+
+                        setEditState.clear();
+                        setEditStep.clear();
+                      }
+
+                      print(editingHistory.id);
                     },
                     child: Text('保存する',
                         style: inputText.copyWith(color: Colors.white))),

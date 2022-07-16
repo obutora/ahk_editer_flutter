@@ -23,4 +23,24 @@ class HistoryStoreNotifier extends StateNotifier<List<DrugHistory>> {
   void remove(DrugHistory history) {
     state = state.where((e) => e.id != history.id).toList();
   }
+
+  bool isExistFromId(String id) {
+    return state.any((e) => e.id == id);
+  }
+
+  bool isExistFromHotString(String hotString) {
+    return state.any((e) => e.hotString == hotString);
+  }
+
+  DrugHistory getHistoryFromId(String id) {
+    return state.firstWhere((e) => e.id == id);
+  }
+
+  DrugHistory getHistoryFromHotString(String hotString) {
+    return state.firstWhere((e) => e.hotString == hotString);
+  }
+
+  // String getHotkeyFromId(String id) {
+  //   return state.firstWhere((e) => e.id == id).hotString;
+  // }
 }

@@ -39,7 +39,7 @@ Widget slugGenerateExe(context) => ElevatedButton(
                 title: const Text('AlertDialog'),
                 content: Text(result.stdout),
                 actions: <Widget>[
-                  FlatButton(
+                  ElevatedButton(
                     child: const Text('OK'),
                     onPressed: () {
                       Navigator.of(context).pop();
