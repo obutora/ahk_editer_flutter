@@ -1,4 +1,5 @@
 import 'package:ahk_editor_flutter/animation/fade.dart';
+import 'package:ahk_editor_flutter/screen/about_screen.dart';
 import 'package:ahk_editor_flutter/screen/home_screen.dart';
 import 'package:ahk_editor_flutter/screen/output_screen.dart';
 import 'package:ahk_editor_flutter/screen/soap_edit_screen.dart';
@@ -54,6 +55,18 @@ class Router extends StatelessWidget {
               backgroundColor: Colors.white,
               body: FadeAnimation(
                 child: OutputScreen(),
+              ),
+            ),
+          ),
+        ),
+        GoRoute(
+          name: 'about',
+          path: '/about',
+          pageBuilder: (context, state) => const MaterialPage(
+            child: Scaffold(
+              backgroundColor: Colors.white,
+              body: FadeAnimation(
+                child: AboutScreen(),
               ),
             ),
           ),

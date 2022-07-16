@@ -41,10 +41,10 @@ class NaviRail extends ConsumerWidget {
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8)),
           NavigationRailDestination(
               icon: Icon(
-                CupertinoIcons.gear,
+                CupertinoIcons.info,
                 color: kPrimaryGreen,
               ),
-              label: Text('config'),
+              label: Text('about'),
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8)),
         ],
         selectedIndex: navState,
@@ -58,6 +58,10 @@ class NaviRail extends ConsumerWidget {
               break;
             case 2:
               context.go('/output');
+              // Navigator.pushNamed(context, '/config');
+              break;
+            case 3:
+              context.go('/about');
               // Navigator.pushNamed(context, '/config');
               break;
           }
