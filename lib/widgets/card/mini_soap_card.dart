@@ -44,6 +44,18 @@ class MiniSoapCard extends StatelessWidget {
             ),
           );
         }).toList(),
+        const SizedBox(
+          height: 8,
+        ),
+        Row(
+          children: [
+            const Spacer(),
+            Text(
+              history.author != '' ? '作成者 : ${history.author}' : '',
+              style: captionText1,
+            ),
+          ],
+        )
       ],
     );
   }

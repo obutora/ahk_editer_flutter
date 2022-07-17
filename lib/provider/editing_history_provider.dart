@@ -52,4 +52,12 @@ class EditingHistoryNotifier extends StateNotifier<DrugHistory> {
     state =
         state.copyWith(group: state.group.where((e) => e != group).toList());
   }
+
+  void setAuther(String auther) {
+    state = state.copyWith(author: auther);
+  }
+
+  void clearAuther() {
+    state = state.copyWith(author: '');
+  }
 }

@@ -13,6 +13,7 @@ abstract class DrugHistory with _$DrugHistory {
 
   const factory DrugHistory({
     required String id,
+    @Default("") String author,
     required List<String> group,
     required String hotString,
     @SoapConverter() required List<Soap> soapList,

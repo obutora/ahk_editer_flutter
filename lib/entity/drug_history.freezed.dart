@@ -21,6 +21,7 @@ DrugHistory _$DrugHistoryFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$DrugHistory {
   String get id => throw _privateConstructorUsedError;
+  String get author => throw _privateConstructorUsedError;
   List<String> get group => throw _privateConstructorUsedError;
   String get hotString => throw _privateConstructorUsedError;
   @SoapConverter()
@@ -39,6 +40,7 @@ abstract class $DrugHistoryCopyWith<$Res> {
       _$DrugHistoryCopyWithImpl<$Res>;
   $Res call(
       {String id,
+      String author,
       List<String> group,
       String hotString,
       @SoapConverter() List<Soap> soapList});
@@ -55,6 +57,7 @@ class _$DrugHistoryCopyWithImpl<$Res> implements $DrugHistoryCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
+    Object? author = freezed,
     Object? group = freezed,
     Object? hotString = freezed,
     Object? soapList = freezed,
@@ -63,6 +66,10 @@ class _$DrugHistoryCopyWithImpl<$Res> implements $DrugHistoryCopyWith<$Res> {
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      author: author == freezed
+          ? _value.author
+          : author // ignore: cast_nullable_to_non_nullable
               as String,
       group: group == freezed
           ? _value.group
@@ -89,6 +96,7 @@ abstract class _$$_DrugHistoryCopyWith<$Res>
   @override
   $Res call(
       {String id,
+      String author,
       List<String> group,
       String hotString,
       @SoapConverter() List<Soap> soapList});
@@ -107,6 +115,7 @@ class __$$_DrugHistoryCopyWithImpl<$Res> extends _$DrugHistoryCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? author = freezed,
     Object? group = freezed,
     Object? hotString = freezed,
     Object? soapList = freezed,
@@ -115,6 +124,10 @@ class __$$_DrugHistoryCopyWithImpl<$Res> extends _$DrugHistoryCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      author: author == freezed
+          ? _value.author
+          : author // ignore: cast_nullable_to_non_nullable
               as String,
       group: group == freezed
           ? _value._group
@@ -137,6 +150,7 @@ class __$$_DrugHistoryCopyWithImpl<$Res> extends _$DrugHistoryCopyWithImpl<$Res>
 class _$_DrugHistory implements _DrugHistory {
   const _$_DrugHistory(
       {required this.id,
+      this.author = "",
       required final List<String> group,
       required this.hotString,
       @SoapConverter() required final List<Soap> soapList})
@@ -148,6 +162,9 @@ class _$_DrugHistory implements _DrugHistory {
 
   @override
   final String id;
+  @override
+  @JsonKey()
+  final String author;
   final List<String> _group;
   @override
   List<String> get group {
@@ -167,7 +184,7 @@ class _$_DrugHistory implements _DrugHistory {
 
   @override
   String toString() {
-    return 'DrugHistory(id: $id, group: $group, hotString: $hotString, soapList: $soapList)';
+    return 'DrugHistory(id: $id, author: $author, group: $group, hotString: $hotString, soapList: $soapList)';
   }
 
   @override
@@ -176,6 +193,7 @@ class _$_DrugHistory implements _DrugHistory {
         (other.runtimeType == runtimeType &&
             other is _$_DrugHistory &&
             const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.author, author) &&
             const DeepCollectionEquality().equals(other._group, _group) &&
             const DeepCollectionEquality().equals(other.hotString, hotString) &&
             const DeepCollectionEquality().equals(other._soapList, _soapList));
@@ -186,6 +204,7 @@ class _$_DrugHistory implements _DrugHistory {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(author),
       const DeepCollectionEquality().hash(_group),
       const DeepCollectionEquality().hash(hotString),
       const DeepCollectionEquality().hash(_soapList));
@@ -204,6 +223,7 @@ class _$_DrugHistory implements _DrugHistory {
 abstract class _DrugHistory implements DrugHistory {
   const factory _DrugHistory(
       {required final String id,
+      final String author,
       required final List<String> group,
       required final String hotString,
       @SoapConverter() required final List<Soap> soapList}) = _$_DrugHistory;
@@ -213,6 +233,8 @@ abstract class _DrugHistory implements DrugHistory {
 
   @override
   String get id;
+  @override
+  String get author;
   @override
   List<String> get group;
   @override

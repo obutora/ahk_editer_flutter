@@ -22,7 +22,6 @@ class OutputScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final setHistoryStore = ref.watch(historyStoreProvider.notifier);
     final historyStore = ref.watch(historyStoreProvider);
 
     return MaterialTheme(
@@ -142,24 +141,6 @@ class OutputScreen extends ConsumerWidget {
                                 child: SoapCardPopupMenuButton(
                                   history: history,
                                 ),
-                                // child: IconButton(
-                                //   icon: const Icon(
-                                //     CupertinoIcons.line_horizontal_3,
-                                //     color: kPrimaryGreen,
-                                //   ),
-                                //   onPressed: () {},
-                                // ),
-                                // child: IconButton(
-                                //   icon: const Icon(
-                                //     CupertinoIcons.xmark_circle,
-                                //     color: kAlertRed,
-                                //   ),
-                                // onPressed: () async {
-                                //   await FileController.deleteJson(history);
-
-                                //   setHistoryStore.remove(history);
-                                // },
-                                // ),
                               ),
                             ],
                           ),
