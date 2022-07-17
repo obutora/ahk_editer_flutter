@@ -47,10 +47,15 @@ class HomeScreen extends ConsumerWidget {
                         const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: kPrimaryGreen.withOpacity(0.16)),
+                        color: historyStore.isEmpty
+                            ? kSecondaryGray.withOpacity(0.16)
+                            : kPrimaryGreen.withOpacity(0.16)),
                     child: Text(
                       '現在のステータス : ${stateString()}',
-                      style: bodyText2.copyWith(color: kPrimaryGreen),
+                      style: bodyText2.copyWith(
+                          color: historyStore.isEmpty
+                              ? kPrimaryBlack
+                              : kPrimaryGreen),
                     ),
                   ),
                   const SizedBox(height: 40),
