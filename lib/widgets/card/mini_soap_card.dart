@@ -39,7 +39,13 @@ class MiniSoapCard extends StatelessWidget {
                       style: bodyText1.copyWith(color: Colors.white)),
                 ),
                 const SizedBox(width: 8),
-                Flexible(child: Text(soap.body, style: bodyText2)),
+                Flexible(
+                  child: SelectableText(
+                    soap.body,
+                    style: bodyText2,
+                    showCursor: true,
+                  ),
+                ),
               ],
             ),
           );

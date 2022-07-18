@@ -1,4 +1,5 @@
 import 'package:ahk_editor_flutter/widgets/card/head_text_card.dart';
+import 'package:ahk_editor_flutter/widgets/card/loading_setting_indicator_card.dart';
 import 'package:ahk_editor_flutter/widgets/navigation/navi_rail.dart';
 import 'package:ahk_editor_flutter/widgets/theme/color.dart';
 import 'package:ahk_editor_flutter/widgets/theme/material_theme.dart';
@@ -45,6 +46,13 @@ class OutputScreen extends ConsumerWidget {
                         description: '''薬歴/トレース入力用の実行用ファイルを出力できます。'''),
                     const SizedBox(height: 24),
                     Row(
+                      children: const [
+                        LoadedSettingIndicatorCard(),
+                        Spacer(),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
                       children: [
                         Container(
                           padding: const EdgeInsets.symmetric(
@@ -53,6 +61,7 @@ class OutputScreen extends ConsumerWidget {
                               borderRadius: BorderRadius.circular(20),
                               color: kPrimaryGreen.withOpacity(0.16)),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: const [
                               Text(
                                 '・作成ボタンを押すと英語のダイアログが出ますが、OKを押してください',
@@ -60,6 +69,10 @@ class OutputScreen extends ConsumerWidget {
                               ),
                               Text(
                                 '・入力用ツールをすでに実行中の場合は必ず閉じてから使用してください',
+                                style: captionText1,
+                              ),
+                              Text(
+                                '・薬歴/トレースが読み込まれていない場合は、必ずHome画面から読み込んでから実行してください',
                                 style: captionText1,
                               ),
                             ],

@@ -35,7 +35,7 @@ class SoapCard extends HookConsumerWidget {
             child: Row(
               children: [
                 CircleAvatar(
-                  backgroundColor: kPrimaryGreen,
+                  backgroundColor: soap.soap != 'ト' ? kPrimaryGreen : kInfoBlue,
                   child: Text(soap.soap,
                       style: const TextStyle(
                           fontSize: 24,
@@ -44,9 +44,10 @@ class SoapCard extends HookConsumerWidget {
                 ),
                 const SizedBox(width: 20),
                 Expanded(
-                  child: Text(
+                  child: SelectableText(
                     soap.body,
                     style: bodyText1,
+                    showCursor: true,
                   ),
                 ),
                 IconButton(
