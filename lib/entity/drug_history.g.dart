@@ -9,6 +9,7 @@ part of 'drug_history.dart';
 _$_DrugHistory _$$_DrugHistoryFromJson(Map<String, dynamic> json) =>
     _$_DrugHistory(
       id: json['id'] as String,
+      date: const DateTimeConverter().fromJson(json['date'] as String),
       author: json['author'] as String? ?? "",
       group: (json['group'] as List<dynamic>).map((e) => e as String).toList(),
       hotString: json['hotString'] as String,
@@ -20,6 +21,7 @@ _$_DrugHistory _$$_DrugHistoryFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$_DrugHistoryToJson(_$_DrugHistory instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'date': const DateTimeConverter().toJson(instance.date),
       'author': instance.author,
       'group': instance.group,
       'hotString': instance.hotString,

@@ -13,15 +13,28 @@ final editingHistoryProvider =
 
 class EditingHistoryNotifier extends StateNotifier<DrugHistory> {
   EditingHistoryNotifier()
-      : super(
-            DrugHistory(id: uuid.v4(), group: [], hotString: '', soapList: []));
+      : super(DrugHistory(
+            id: uuid.v4(),
+            group: [],
+            hotString: '',
+            soapList: [],
+            date: DateTime.now()));
 
   void clear() {
-    state = DrugHistory(id: uuid.v4(), group: [], hotString: '', soapList: []);
+    state = DrugHistory(
+        id: uuid.v4(),
+        group: [],
+        hotString: '',
+        soapList: [],
+        date: DateTime.now());
   }
 
   void setHistory(DrugHistory history) {
     state = history;
+  }
+
+  void updateDate(DateTime date) {
+    state = state.copyWith(date: date);
   }
 
   void addSoap(Soap soap) {

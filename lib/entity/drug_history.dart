@@ -13,6 +13,7 @@ abstract class DrugHistory with _$DrugHistory {
 
   const factory DrugHistory({
     required String id,
+    @DateTimeConverter() required DateTime date,
     @Default("") String author,
     required List<String> group,
     required String hotString,
@@ -57,4 +58,18 @@ class SoapConverter implements JsonConverter<Soap, Object> {
 
   @override
   Object toJson(Soap object) => object.toJson();
+}
+
+class DateTimeConverter implements JsonConverter<DateTime, String> {
+  const DateTimeConverter();
+
+  @override
+  DateTime fromJson(String json) {
+    return DateTime.parse(json).toLocal();
+  }
+
+  @override
+  String toJson(DateTime dateTime) {
+    return dateTime.toLocal().toString();
+  }
 }

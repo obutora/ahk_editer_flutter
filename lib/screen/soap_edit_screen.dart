@@ -20,6 +20,14 @@ class SoapEditScreen extends ConsumerWidget {
     final setEditStep = ref.watch(editStepProvider.notifier);
     final setEditHistory = ref.watch(editingHistoryProvider.notifier);
 
+    final ScrollController scrollController = ScrollController();
+
+    void moveTop() {
+      scrollController.animateTo(0,
+          duration: const Duration(milliseconds: 600),
+          curve: Curves.easeOutCirc);
+    }
+
     return MaterialTheme(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -35,6 +43,7 @@ class SoapEditScreen extends ConsumerWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 40, vertical: 28),
                     child: ListView(
+                      controller: scrollController,
                       shrinkWrap: true,
                       children: [
                         editStepState.isSoap
@@ -62,6 +71,7 @@ class SoapEditScreen extends ConsumerWidget {
                                 ? ElevatedButton.icon(
                                     onPressed: () {
                                       setEditStep.back();
+                                      moveTop();
                                     },
                                     icon:
                                         const Icon(CupertinoIcons.left_chevron),
@@ -75,6 +85,7 @@ class SoapEditScreen extends ConsumerWidget {
                                     onPressed: () {
                                       setEditStep.next(
                                           editingHistoryState, context);
+                                      moveTop();
                                     },
                                     icon: const Icon(
                                         CupertinoIcons.right_chevron),

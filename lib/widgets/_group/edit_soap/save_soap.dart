@@ -1,3 +1,4 @@
+import 'package:ahk_editor_flutter/controller/api_handler.dart';
 import 'package:ahk_editor_flutter/entity/drug_history.dart';
 import 'package:ahk_editor_flutter/widgets/dialog/double_hotstring_dialog.dart';
 import 'package:flutter/material.dart';
@@ -55,6 +56,12 @@ class SaveSoapWidget extends ConsumerWidget {
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(primary: kPrimaryGreen),
                     onPressed: () async {
+                      //NOTE: 日付を最新のものにUpdateする
+                      setEditState.updateDate(DateTime.now());
+
+                      //NOTE: DBに保存
+                      ApiHandler.sendHistory(editingHistory);
+
                       final bool isExistFromId =
                           setHistoryStore.isExistFromId(editingHistory.id);
                       final bool isExistFromHotString = setHistoryStore

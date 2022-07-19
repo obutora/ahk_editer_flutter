@@ -72,7 +72,7 @@ class OutputScreen extends ConsumerWidget {
                                 style: captionText1,
                               ),
                               Text(
-                                '・薬歴/トレースが読み込まれていない場合は、必ずHome画面から読み込んでから実行してください',
+                                '・薬歴/トレースが読み込まれていない場合は、必ずHome画面から読み込んでください',
                                 style: captionText1,
                               ),
                             ],

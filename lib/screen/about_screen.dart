@@ -1,17 +1,22 @@
+import 'package:ahk_editor_flutter/controller/api_handler.dart';
 import 'package:ahk_editor_flutter/widgets/card/head_text_card.dart';
 import 'package:ahk_editor_flutter/widgets/theme/material_theme.dart';
 import 'package:ahk_editor_flutter/widgets/theme/text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../provider/history_store_provider.dart';
 import '../widgets/navigation/navi_rail.dart';
 import '../widgets/theme/color.dart';
 
-class AboutScreen extends StatelessWidget {
+class AboutScreen extends ConsumerWidget {
   const AboutScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final storeState = ref.watch(historyStoreProvider.notifier);
     return MaterialTheme(
         child: Scaffold(
       backgroundColor: Colors.white,
@@ -25,37 +30,32 @@ class AboutScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 28),
               child: ListView(
-                children: [
-                  const HeadTextCard(
+                children: const [
+                  HeadTextCard(
                       title: 'AHK Editor in flutter',
                       description:
                           'このアプリはAHKを非エンジニアの方でもカンタンに利用できるようにするためのアプリです。'),
-                  const SizedBox(height: 24),
-                  const DescCard(
+                  SizedBox(height: 24),
+                  DescCard(
                     icon: CupertinoIcons.home,
                     text: '← のアイコンから設定ファイルを読み込みましょう',
                   ),
-                  const SizedBox(height: 12),
-                  const DescCard(
+                  SizedBox(height: 12),
+                  DescCard(
                     icon: CupertinoIcons.pen,
                     text: '← のアイコンからSOAPを入力して保存できます',
                   ),
-                  const SizedBox(height: 12),
-                  const DescCard(
+                  SizedBox(height: 12),
+                  DescCard(
                     icon: CupertinoIcons.tray_arrow_up_fill,
                     text: '← のアイコンから実行用のファイルを作成することができます',
                   ),
-                  const SizedBox(
+
+                  SizedBox(
                     height: 40,
                   ),
                   // Text('Produced by Kunihiko Haga.', style: captionText1),
-                  Row(
-                    children: [
-                      const Spacer(),
-                      Text('© 2022 Kunihiko Haga.',
-                          style: captionText1.copyWith(color: kPrimaryGreen)),
-                    ],
-                  ),
+                  CopyRightText(),
                 ],
               ),
             ),
@@ -63,6 +63,32 @@ class AboutScreen extends StatelessWidget {
         ],
       ),
     ));
+  }
+}
+
+class CopyRightText extends HookWidget {
+  const CopyRightText({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final textState = useState('© 2022 Kunihiko Haga.');
+
+    return Row(
+      children: [
+        const Spacer(),
+        GestureDetector(
+          onTap: () async {
+            print('start test');
+            final test = await ApiHandler.testHistory();
+            textState.value = test;
+          },
+          child: Text(textState.value,
+              style: captionText1.copyWith(color: kPrimaryGreen)),
+        ),
+      ],
+    );
   }
 }
 

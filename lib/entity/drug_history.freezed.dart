@@ -21,6 +21,8 @@ DrugHistory _$DrugHistoryFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$DrugHistory {
   String get id => throw _privateConstructorUsedError;
+  @DateTimeConverter()
+  DateTime get date => throw _privateConstructorUsedError;
   String get author => throw _privateConstructorUsedError;
   List<String> get group => throw _privateConstructorUsedError;
   String get hotString => throw _privateConstructorUsedError;
@@ -40,6 +42,7 @@ abstract class $DrugHistoryCopyWith<$Res> {
       _$DrugHistoryCopyWithImpl<$Res>;
   $Res call(
       {String id,
+      @DateTimeConverter() DateTime date,
       String author,
       List<String> group,
       String hotString,
@@ -57,6 +60,7 @@ class _$DrugHistoryCopyWithImpl<$Res> implements $DrugHistoryCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
+    Object? date = freezed,
     Object? author = freezed,
     Object? group = freezed,
     Object? hotString = freezed,
@@ -67,6 +71,10 @@ class _$DrugHistoryCopyWithImpl<$Res> implements $DrugHistoryCopyWith<$Res> {
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      date: date == freezed
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       author: author == freezed
           ? _value.author
           : author // ignore: cast_nullable_to_non_nullable
@@ -96,6 +104,7 @@ abstract class _$$_DrugHistoryCopyWith<$Res>
   @override
   $Res call(
       {String id,
+      @DateTimeConverter() DateTime date,
       String author,
       List<String> group,
       String hotString,
@@ -115,6 +124,7 @@ class __$$_DrugHistoryCopyWithImpl<$Res> extends _$DrugHistoryCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? date = freezed,
     Object? author = freezed,
     Object? group = freezed,
     Object? hotString = freezed,
@@ -125,6 +135,10 @@ class __$$_DrugHistoryCopyWithImpl<$Res> extends _$DrugHistoryCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      date: date == freezed
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       author: author == freezed
           ? _value.author
           : author // ignore: cast_nullable_to_non_nullable
@@ -150,6 +164,7 @@ class __$$_DrugHistoryCopyWithImpl<$Res> extends _$DrugHistoryCopyWithImpl<$Res>
 class _$_DrugHistory implements _DrugHistory {
   const _$_DrugHistory(
       {required this.id,
+      @DateTimeConverter() required this.date,
       this.author = "",
       required final List<String> group,
       required this.hotString,
@@ -162,6 +177,9 @@ class _$_DrugHistory implements _DrugHistory {
 
   @override
   final String id;
+  @override
+  @DateTimeConverter()
+  final DateTime date;
   @override
   @JsonKey()
   final String author;
@@ -184,7 +202,7 @@ class _$_DrugHistory implements _DrugHistory {
 
   @override
   String toString() {
-    return 'DrugHistory(id: $id, author: $author, group: $group, hotString: $hotString, soapList: $soapList)';
+    return 'DrugHistory(id: $id, date: $date, author: $author, group: $group, hotString: $hotString, soapList: $soapList)';
   }
 
   @override
@@ -193,6 +211,7 @@ class _$_DrugHistory implements _DrugHistory {
         (other.runtimeType == runtimeType &&
             other is _$_DrugHistory &&
             const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.date, date) &&
             const DeepCollectionEquality().equals(other.author, author) &&
             const DeepCollectionEquality().equals(other._group, _group) &&
             const DeepCollectionEquality().equals(other.hotString, hotString) &&
@@ -204,6 +223,7 @@ class _$_DrugHistory implements _DrugHistory {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(date),
       const DeepCollectionEquality().hash(author),
       const DeepCollectionEquality().hash(_group),
       const DeepCollectionEquality().hash(hotString),
@@ -223,6 +243,7 @@ class _$_DrugHistory implements _DrugHistory {
 abstract class _DrugHistory implements DrugHistory {
   const factory _DrugHistory(
       {required final String id,
+      @DateTimeConverter() required final DateTime date,
       final String author,
       required final List<String> group,
       required final String hotString,
@@ -233,6 +254,9 @@ abstract class _DrugHistory implements DrugHistory {
 
   @override
   String get id;
+  @override
+  @DateTimeConverter()
+  DateTime get date;
   @override
   String get author;
   @override

@@ -40,6 +40,10 @@ class HistoryStoreNotifier extends StateNotifier<List<DrugHistory>> {
     return state.firstWhere((e) => e.hotString == hotString);
   }
 
+  List<DrugHistory> getAll() {
+    return state;
+  }
+
   // String getHotkeyFromId(String id) {
   //   return state.firstWhere((e) => e.id == id).hotString;
   // }
