@@ -42,14 +42,6 @@ class EditableHotKeyAndGroup extends ConsumerWidget {
                   description:
                       'たとえば「 @bp1 」がオススメです。\n頭文字を@, 後ろに略語をつけると分かりやすくなります。',
                   hintText: '例) @bp1',
-                  // stateValue: editingHistoryState.hotString,
-                  // onPressed: (text) {
-                  //   //NOTE : HotKeyが入力されていないときはSet,入力されているときはClear、
-                  //   editingHistoryState.hotString.isEmpty
-                  //       ? setHistory.setHotString(text)
-                  //       : setHistory.clearHotString();
-                  // },
-
                   onFocus: (text) {
                     setHistory.setHotString(text);
                   },
@@ -78,14 +70,6 @@ class EditableHotKeyAndGroup extends ConsumerWidget {
                   description:
                       '作者名を公開することができます。せっかく作ったデータなのでぜひ入力をお願いします。\n* 必須ではありません。',
                   hintText: '例) 薬局 太郎',
-                  // stateValue: editingHistoryState.author,
-                  // onPressed: (text) {
-                  //   //NOTE : HotKeyが入力されていないときはSet,入力されているときはClear、
-                  //   editingHistoryState.author.isEmpty
-                  //       ? setHistory.setAuther(text)
-                  //       : setHistory.clearAuther();
-                  // },
-
                   onFocus: (text) {
                     setHistory.setAuther(text);
                   },
@@ -200,25 +184,16 @@ class ChangeSwichableHistoryProperty extends StatelessWidget {
     required this.title,
     required this.description,
     required this.hintText,
-    // required this.stateValue,
-    // required this.onPressed,
-    // required this.onSubmitted,
-    // required this.onChanged,
     required this.onFocus,
   }) : super(key: key);
 
   final String title;
   final String description;
   final String hintText;
-  // final String stateValue;
-  // final Function(String text) onPressed;
-  // final Function(String text) onChanged;
-  // final Function(String text) onSubmitted;
   final Function(String text) onFocus;
 
   @override
   Widget build(BuildContext context) {
-    // final drugHistory = ref.watch(editingHistoryProvider);
     final controller = TextEditingController();
 
     return LimitedBox(
@@ -247,54 +222,9 @@ class ChangeSwichableHistoryProperty extends StatelessWidget {
                 controller: controller,
                 decoration: StandardInputDecoration(hintText),
                 style: inputText,
-                // onChanged: (text) {
-                //   // controller.text = text;
-                //   onChanged(text);
-                // },
-
-                // onEditingComplete: () {
-                //   print(controller.text);
-                // },
-                // onSubmitted: (text) {
-                //   // onPressed(text);
-                //   print(text);
-                // },
               ),
             ),
           ),
-          // Row(
-          //   children: [
-          //     // NOTE : Stateに保存されている薬歴にHotKeyが入っているかどうかで分岐する
-          //     stateValue.isNotEmpty
-          //         ? Text(
-          //             stateValue,
-          //             style: bodyText1.copyWith(color: kPrimaryGreen),
-          //           )
-          //         : Flexible(
-          //             child: TextField(
-          //               controller: controller,
-          //               decoration: StandardInputDecoration(hintText),
-          //               style: inputText,
-          //               onSubmitted: (text) {
-          //                 // //NOTE : HotKeyが入力されていないときはSet,入力されているときはClear、
-          //                 // drugHistory.hotString.isEmpty
-          //                 //     ? setDrugHistory.setHotString(controller.text)
-          //                 //     : setDrugHistory.clearHotString();
-
-          //                 onPressed(controller.text);
-          //               },
-          //             ),
-          //           ),
-          //     const SizedBox(width: 8),
-          //     AddButton(
-          //         icon: drugHistory.hotString.isEmpty
-          //             ? CupertinoIcons.check_mark
-          //             : CupertinoIcons.reply,
-          //         onPressed: () {
-          //           onPressed(controller.text);
-          //         })
-          //   ],
-          // )
         ],
       ),
     );
