@@ -26,7 +26,7 @@ class EditableDrugHistory extends HookConsumerWidget {
 
     final setHistory = ref.watch(editingHistoryProvider.notifier);
 
-    final focusNode = FocusNode();
+    // final focusNode = FocusNode();
 
     void addSoap() {
       setHistory.addSoap(Soap(
@@ -57,7 +57,7 @@ class EditableDrugHistory extends HookConsumerWidget {
                             groupValue: selectedSoapCategory.value,
                             onChanged: (e) {
                               selectedSoapCategory.value = e.toString();
-                              focusNode.requestFocus();
+                              // focusNode.requestFocus();
                             }),
                         Text(
                           e,
@@ -79,7 +79,7 @@ class EditableDrugHistory extends HookConsumerWidget {
             children: [
               Flexible(
                 child: TextField(
-                    focusNode: focusNode,
+                    // focusNode: focusNode,
                     controller: textControleller,
                     decoration: StandardInputDecoration('SOAPを選んで入力してください'),
                     // maxLines: null,

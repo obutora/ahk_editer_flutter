@@ -16,7 +16,6 @@ class SoapCard extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final history = ref.watch(editingHistoryProvider);
-    final setHistory = ref.watch(editingHistoryProvider.notifier);
 
     return ListView.builder(
         shrinkWrap: true,
