@@ -139,13 +139,11 @@ class AhkController {
 
   static const String ahkTail = '''print(str)    {
 sleep,100
-backup := ClipboardAll
 Clipboard = %str%
 sleep, 50
 send, ^v
 sleep,100
 send, {Enter 1}
-Clipboard := backup
 sleep,100
 return
 }''';
