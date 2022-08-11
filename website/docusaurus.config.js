@@ -7,13 +7,13 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'AO',
-  tagline: 'Dinosaurs are cool',
+  tagline: '高品質な薬歴を、最短時間で実現しましょう。',
   url: 'https://obutora.github.io/',
-  baseUrl: '/',
+  baseUrl: '/ahk_editer_flutter/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-
+  staticDirectories: ['static'],
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'obutora', // Usually your GitHub org/user name.
@@ -24,8 +24,8 @@ const config = {
   // metadata like html lang. For example, if your site is Chinese, you may want
   // to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: 'ja',
+    locales: ['ja'],
   },
 
   presets: [
@@ -37,8 +37,8 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          // editUrl:
+          //   'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         blog: {
           showReadingTime: true,
@@ -52,6 +52,20 @@ const config = {
         },
       }),
     ],
+  ],
+
+  plugins: [
+    async function myPlugin(context, options) {
+      return {
+        name: "docusaurus-tailwindcss",
+        configurePostCss(postcssOptions) {
+          // Appends TailwindCSS and AutoPrefixer.
+          postcssOptions.plugins.push(require("tailwindcss"));
+          postcssOptions.plugins.push(require("autoprefixer"));
+          return postcssOptions;
+        },
+      };
+    },
   ],
 
   themeConfig:
@@ -131,3 +145,4 @@ const config = {
 };
 
 module.exports = config;
+
