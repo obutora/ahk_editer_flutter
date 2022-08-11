@@ -55,7 +55,7 @@ class EditableHotKeyAndGroup extends ConsumerWidget {
                       '薬歴にグループを設定すると、一覧画面でグループ分けした薬歴を見れます。\n血圧の薬歴をグループにしたい場合は「血圧」と入力してください。\nグループがなくても登録は可能です。（*非推奨）',
                   hintText: '例) 血圧',
                   onPressed: (String text) {
-                    // setHistory.addGroup(text);
+                    setHistory.addGroup(text);
                   },
                 ),
                 // NOTE: tagを表示するためのWidget
