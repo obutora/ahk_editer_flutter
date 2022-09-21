@@ -41,8 +41,10 @@ class AhkController {
   static String historyListToAhkString(List<DrugHistory> historyList) {
     final buffer = StringBuffer();
     const sep = '\n\n';
+    
+    const inputMode = '#Hotstring SI B Z'
 
-    List<String> ahkStringList = [];
+    List<String> ahkStringList = [inputMode];
 
     for (final history in historyList) {
       final String ahkString = historyToAhkString(history);
