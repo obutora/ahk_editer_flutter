@@ -138,13 +138,11 @@ class AhkController {
   }
 
   static const String ahkTail = '''print(str)    {
-sleep,100
-Clipboard = %str%
-sleep, 50
-send, ^v
-sleep,100
-send, {Enter 1}
-sleep,100
+sleep,150
+send, %str%
+sleep, 150
+send, {Enter 2}
+sleep, 150
 return
 }''';
 }
