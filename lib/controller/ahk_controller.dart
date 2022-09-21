@@ -41,17 +41,15 @@ class AhkController {
   static String historyListToAhkString(List<DrugHistory> historyList) {
     final buffer = StringBuffer();
     const sep = '\n\n';
-    
-    const inputMode = '#Hotstring SI B Z'
 
-    List<String> ahkStringList = [inputMode];
+    List<String> ahkStringList = [];
 
     for (final history in historyList) {
       final String ahkString = historyToAhkString(history);
       ahkStringList.add(ahkString);
     }
 
-    buffer.writeAll([...ahkStringList, ahkTail], sep);
+    buffer.writeAll([ahkInputMode, ...ahkStringList, ahkTail], sep);
 
     return buffer.toString();
   }
@@ -138,6 +136,8 @@ class AhkController {
 
     return buffer.toString();
   }
+  
+  static const String ahkInputMode = '#Hotstring SI B Z';
 
   static const String ahkTail = '''print(str)    {
 sleep,150
