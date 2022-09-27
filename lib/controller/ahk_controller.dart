@@ -127,24 +127,31 @@ class AhkController {
 // ホットキーとreturnでbodyTextを挟むためのメソッド
   static String finalizeSoapString(String hotString, String body) {
     final String head = '::$hotString::';
+    const String backupClip = '''savedClip := ClipboardAll
+Clipboard :=''';
+    const String restoreClip = 'Clipboard := savedClip';
+
     const String tail = 'return';
 
     final buffer = StringBuffer();
     const sep = '\n';
 
-    buffer.writeAll([head, body, tail], sep);
+    buffer.writeAll([head, backupClip, body, restoreClip, tail], sep);
 
     return buffer.toString();
   }
-  
+
   static const String ahkInputMode = '#Hotstring SI B Z';
 
   static const String ahkTail = '''print(str)    {
-sleep,150
-send, %str%
-sleep, 150
-send, {Enter 2}
-sleep, 150
-return
-}''';
+    sleep,100
+    Clipboard = %str%
+    sleep, 50
+    send, ^v
+    sleep,100
+    send, {Enter 1}
+    sleep,100
+    return
+}
+''';
 }
