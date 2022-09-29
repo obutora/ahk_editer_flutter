@@ -51,6 +51,7 @@ class EditableTrace extends HookConsumerWidget {
                 child: TextField(
                     keyboardType: TextInputType.multiline,
                     controller: textControleller,
+                    autocorrect: false,
                     decoration: StandardInputDecoration('トレースの文書を入力してください'),
                     maxLines: null,
                     style: inputText,

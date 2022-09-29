@@ -146,11 +146,10 @@ Clipboard :=''';
   static const String ahkTail = '''print(str)    {
     sleep,100
     Clipboard = %str%
-    sleep, 50
+    ClipWait, 1
     send, ^v
     sleep,100
     send, {Enter 1}
-    sleep,100
     return
 }
 ''';

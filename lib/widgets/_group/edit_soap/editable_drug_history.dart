@@ -80,6 +80,7 @@ class EditableDrugHistory extends HookConsumerWidget {
               Flexible(
                 child: TextField(
                     // focusNode: focusNode,
+                    autocorrect: false,
                     controller: textControleller,
                     decoration: StandardInputDecoration('SOAPを選んで入力してください'),
                     // maxLines: null,
