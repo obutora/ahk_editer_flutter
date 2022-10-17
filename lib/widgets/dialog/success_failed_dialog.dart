@@ -21,7 +21,7 @@ Future<dynamic> openSuccessFailedDialog(
                 ),
           content: isSuccess
               ? const Text(
-                  'outputフォルダ/output.exeを実行して動作確認してみましょう',
+                  'AO.自動入力用.exeを実行して動作確認してみましょう\n＊すでに起動している場合は右クリックから終了してください',
                   style: captionText1,
                 )
               : const Text(

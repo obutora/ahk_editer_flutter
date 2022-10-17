@@ -141,16 +141,61 @@ Clipboard :=''';
     return buffer.toString();
   }
 
-  static const String ahkInputMode = '#Hotstring SI B Z';
+  static const String ahkInputMode = '#Hotstring SI B Z O';
 
   static const String ahkTail = '''print(str)    {
-    sleep,100
     Clipboard = %str%
-    ClipWait, 1
+    ClipWait, 2
     send, ^v
-    sleep,100
     send, {Enter 1}
+    sleep, 150
     return
 }
+
+;;IME制御の関数-------IME_SET(n)-----0で半角/1で日本語--------------------------
+IME_SET(SetSts, WinTitle="A")    {
+	ControlGet,hwnd,HWND,,,%WinTitle%
+	if	(WinActive(WinTitle))	{
+		ptrSize := !A_PtrSize ? 4 : A_PtrSize
+        VarSetCapacity(stGTI, cbSize:=4+4+(PtrSize*6)+16, 0)
+        NumPut(cbSize, stGTI,  0, "UInt")   ;	DWORD   cbSize;
+		hwnd := DllCall("GetGUIThreadInfo", Uint,0, Uint,&stGTI)
+                ? NumGet(stGTI,8+PtrSize,"UInt") : hwnd
+	}
+    return DllCall("SendMessage"
+        , UInt, DllCall("imm32\ImmGetDefaultIMEWnd", Uint,hwnd)
+        , UInt, 0x0283  ;Message : WM_IME_CONTROL
+        ,  Int, 0x006   ;wParam  : IMC_SETOPENSTATUS
+        ,  Int, SetSts) ;lParam  : 0 or 1
+} 
+
+;;ctrl+Shift+Z::患者サマリ
+^+z::MouseClick,LEFT,830,180 ;;患者サマリ
+
+;;ctrl+Shift+X::処方
+^+x::MouseClick,LEFT,1000,180 ;;処方
+
+;;ctrl+Shift+C::薬歴
+^+c::MouseClick,LEFT,1200,180  ;;薬歴
+
+;;右Ctrl::薬歴確定
+^+s::
+    send, {Ctrl Up}
+    send, {WheelUp 15}
+    sleep, 500
+    MouseClick,LEFT,1700,430 ;;確定（自薬局以外利用ある場合）
+    MouseClick,LEFT,1700,390 ;;確定
+    sleep, 500
+    send, {Enter}
+    sleep, 3000
+    MouseClick,LEFT,530,180 ;;患者一覧（患者名6～文字）
+    MouseClick,LEFT,480,180 ;;患者一覧（患者名4～5文字）
+    MouseClick,LEFT,420,180 ;;患者一覧（患者名3文字）
+    sleep,500
+    MouseClick,LEFT,1400,420 ;;検索窓
+    sleep, 500
+    IME_SET(1)
+    Send, {BS 8}
+    return
 ''';
 }

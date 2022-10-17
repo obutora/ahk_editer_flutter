@@ -45,8 +45,8 @@ class PathController {
   }
 
   static String getExeFilePath() {
-    final String dir = getOutputDir();
-    final String filePath = p.join(dir, 'output.exe');
+    final String dir = Directory.current.path;
+    final String filePath = p.join(dir, 'AO.自動入力用.exe');
 
     return filePath;
   }
