@@ -128,7 +128,7 @@ class AhkController {
   static String finalizeSoapString(String hotString, String body) {
     final String head = '::$hotString::';
     const String backupClip = '''savedClip := ClipboardAll
-Clipboard :=''';
+Clipboard = ''';
     const String restoreClip = 'Clipboard := savedClip';
 
     const String tail = 'return';
