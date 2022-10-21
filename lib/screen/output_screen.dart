@@ -6,6 +6,7 @@ import 'package:ahk_editor_flutter/widgets/theme/material_theme.dart';
 import 'package:ahk_editor_flutter/widgets/theme/text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -18,12 +19,14 @@ import '../provider/route_index_provider.dart';
 import '../widgets/card/mini_soap_card.dart';
 import '../widgets/dialog/success_failed_dialog.dart';
 
-class OutputScreen extends ConsumerWidget {
+class OutputScreen extends HookConsumerWidget {
   const OutputScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final historyStore = ref.watch(historyStoreProvider);
+
+    final sliderState = useState(1.0);
 
     return MaterialTheme(
       child: Scaffold(
@@ -59,27 +62,58 @@ class OutputScreen extends ConsumerWidget {
                               horizontal: 28, vertical: 20),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              color: kPrimaryGreen.withOpacity(0.16)),
+                              color: kPrimaryGreen.withOpacity(0.08)),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text(
                                 '・作成ボタンを押すと英語のダイアログが出ますが、OKを押してください',
-                                style: captionText1,
+                                style:
+                                    captionText1.copyWith(color: kPrimaryGreen),
                               ),
                               Text(
                                 '・入力用ツールをすでに実行中の場合は必ず閉じてから使用してください',
-                                style: captionText1,
+                                style:
+                                    captionText1.copyWith(color: kPrimaryGreen),
                               ),
                               Text(
                                 '・薬歴/トレースが読み込まれていない場合は、必ずHome画面から読み込んでください',
-                                style: captionText1,
+                                style:
+                                    captionText1.copyWith(color: kPrimaryGreen),
                               ),
                             ],
                           ),
                         ),
                         const Spacer()
                       ],
+                    ),
+                    const SizedBox(height: 16),
+                    // NOTE: AHKのSleepの時間を調整するためのスライダー
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 0, vertical: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('速度/安定度設定',
+                              style: headText3.copyWith(
+                                fontWeight: FontWeight.w600,
+                              )),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                              '速度のデフォルト値は1です。\n速度はn倍に設定できます。数値が小さいほど速度は速くなりますが、速くするほど安定性が低下します。\n安定性が低下すると行飛びやSOAP違いが発生しやすくなります。\n数値を大きくすると安定性が高くなりますが、実行速度は低下します。',
+                              style: captionText1.copyWith()),
+                          Slider(
+                              min: 0,
+                              max: 3,
+                              divisions: 12,
+                              label: '${sliderState.value}',
+                              value: sliderState.value,
+                              onChanged: (e) => {sliderState.value = e}),
+                        ],
+                      ),
                     ),
                     const SizedBox(
                       height: 16,
@@ -88,7 +122,7 @@ class OutputScreen extends ConsumerWidget {
                       children: [
                         ElevatedButton.icon(
                           style: ElevatedButton.styleFrom(
-                            primary: kPrimaryGreen,
+                            backgroundColor: kPrimaryGreen,
                           ),
                           icon: const Icon(
                             CupertinoIcons.checkmark_seal_fill,
@@ -101,7 +135,7 @@ class OutputScreen extends ConsumerWidget {
                           onPressed: () async {
                             final String result =
                                 AhkController.historyListToAhkString(
-                                    historyStore);
+                                    historyStore, sliderState.value);
 
                             await FileController.saveAhk(result);
                             final bool isSuccess =

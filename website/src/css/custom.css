@@ -11,15 +11,15 @@
 @tailwind utilities;
 
 h1 {
-  @apply mt-8 font-body text-4xl font-bold text-neutral-700 dark:text-neutral-200;
+  @apply mt-8 font-body text-4xl font-bold text-neutral-700 dark:text-neutral-200 prose;
 }
 
 h2 {
-  @apply mt-8 font-body text-3xl font-bold text-neutral-700;
+  @apply mt-8 font-body text-3xl font-bold text-neutral-700 prose;
 }
 
 h3 {
-  @apply font-body text-xl font-semibold text-neutral-700;
+  @apply font-body text-xl font-semibold text-neutral-700 prose;
 }
 
 a {
@@ -27,7 +27,7 @@ a {
 }
 
 p {
-  @apply font-body text-base leading-relaxed text-neutral-600;
+  @apply font-body text-base leading-relaxed text-neutral-600 prose leading-7;
 }
 
 ul {
