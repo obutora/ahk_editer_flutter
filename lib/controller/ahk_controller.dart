@@ -38,7 +38,17 @@ class AhkController {
     }
   }
 
-  static String historyListToAhkString(List<DrugHistory> historyList) {
+  static Future<Object> runAhkExe() async {
+    try {
+      final result = await Process.run(PathController.getExeFilePath(), []);
+      return result;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  static String historyListToAhkString(
+      List<DrugHistory> historyList, double speed) {
     final buffer = StringBuffer();
     const sep = '\n\n';
 
@@ -49,7 +59,7 @@ class AhkController {
       ahkStringList.add(ahkString);
     }
 
-    buffer.writeAll([ahkInputMode, ...ahkStringList, ahkTail], sep);
+    buffer.writeAll([ahkInputMode, ...ahkStringList, ahkTail(speed)], sep);
 
     return buffer.toString();
   }
@@ -127,28 +137,34 @@ class AhkController {
 // ホットキーとreturnでbodyTextを挟むためのメソッド
   static String finalizeSoapString(String hotString, String body) {
     final String head = '::$hotString::';
-    const String backupClip = '''savedClip := ClipboardAll
-Clipboard = ''';
-    const String restoreClip = 'Clipboard := savedClip';
+//     const String backupClip = '''savedClip := ClipboardAll
+// Clipboard = ''';
+//     const String restoreClip = 'Clipboard := savedClip';
 
     const String tail = 'return';
 
     final buffer = StringBuffer();
     const sep = '\n';
 
-    buffer.writeAll([head, backupClip, body, restoreClip, tail], sep);
+    buffer.writeAll([
+      head,
+      // backupClip,
+      body,
+      // restoreClip,
+      tail
+    ], sep);
 
     return buffer.toString();
   }
 
   static const String ahkInputMode = '#Hotstring SI B Z O';
 
-  static const String ahkTail = '''print(str)    {
+  static String ahkTail(double speed) => '''print(str)    {
+    sleep, ${(200 * speed).toInt()}
     Clipboard = %str%
-    ClipWait, 2
-    send, ^v
-    send, {Enter 1}
-    sleep, 150
+    sleep, ${(200 * speed).toInt()}
+    send, {Enter 2}
+    sleep, ${(200 * speed).toInt()}
     return
 }
 
@@ -163,7 +179,7 @@ IME_SET(SetSts, WinTitle="A")    {
                 ? NumGet(stGTI,8+PtrSize,"UInt") : hwnd
 	}
     return DllCall("SendMessage"
-        , UInt, DllCall("imm32\ImmGetDefaultIMEWnd", Uint,hwnd)
+        , UInt, DllCall("imm32ImmGetDefaultIMEWnd", Uint,hwnd)
         , UInt, 0x0283  ;Message : WM_IME_CONTROL
         ,  Int, 0x006   ;wParam  : IMC_SETOPENSTATUS
         ,  Int, SetSts) ;lParam  : 0 or 1

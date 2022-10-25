@@ -40,5 +40,6 @@ const bodyText2 = TextStyle(
 const captionText1 = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w400,
+    height: 1.66,
     letterSpacing: 1.4,
     color: kSecondaryGray);
