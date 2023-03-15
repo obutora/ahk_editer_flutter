@@ -1,12 +1,13 @@
-import 'package:ahk_editor_flutter/provider/route_index_provider.dart';
-import 'package:ahk_editor_flutter/widgets/theme/color.dart';
-import 'package:ahk_editor_flutter/widgets/theme/text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class NaviRail extends ConsumerWidget {
+import '../../provider/route_index_provider.dart';
+import '../theme/color.dart';
+import '../theme/text.dart';
+
+class NaviRail extends HookConsumerWidget {
   const NaviRail({
     Key? key,
   }) : super(key: key);
@@ -42,6 +43,13 @@ class NaviRail extends ConsumerWidget {
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8)),
           const NavigationRailDestination(
               icon: Icon(
+                CupertinoIcons.search,
+                color: kPrimaryGreen,
+              ),
+              label: Text('search'),
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8)),
+          const NavigationRailDestination(
+              icon: Icon(
                 CupertinoIcons.info,
                 color: kPrimaryGreen,
               ),
@@ -69,8 +77,10 @@ class NaviRail extends ConsumerWidget {
               // Navigator.pushNamed(context, '/config');
               break;
             case 3:
+              context.go('/search');
+              break;
+            case 4:
               context.go('/about');
-              // Navigator.pushNamed(context, '/config');
               break;
           }
 

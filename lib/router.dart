@@ -5,6 +5,7 @@ import 'animation/fade.dart';
 import 'screen/about_screen.dart';
 import 'screen/home_screen.dart';
 import 'screen/output_screen.dart';
+import 'screen/search_screen.dart';
 import 'screen/soap_edit_screen.dart';
 
 final router = GoRouter(
@@ -44,6 +45,18 @@ final router = GoRouter(
           backgroundColor: Colors.white,
           body: FadeAnimation(
             child: OutputScreen(),
+          ),
+        ),
+      ),
+    ),
+    GoRoute(
+      name: 'search',
+      path: '/search',
+      pageBuilder: (context, state) => const MaterialPage(
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          body: FadeAnimation(
+            child: SearchScreen(),
           ),
         ),
       ),
