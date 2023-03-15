@@ -17,9 +17,9 @@ class AddButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-          elevation: 0,
-          primary: kPrimaryGreen,
-          onPrimary: Theme.of(context).colorScheme.onPrimary),
+          foregroundColor: Theme.of(context).colorScheme.onPrimary,
+          backgroundColor: kPrimaryGreen,
+          elevation: 0),
       onPressed: onPressed,
       child: Icon(
         icon,
