@@ -1,6 +1,6 @@
 import 'package:ahk_editor_flutter/entity/soap.dart';
 import 'package:ahk_editor_flutter/provider/editing_history_provider.dart';
-import 'package:ahk_editor_flutter/widgets/button/add_button.dart';
+import 'package:ahk_editor_flutter/widgets/button/rounded_button.dart';
 import 'package:ahk_editor_flutter/widgets/theme/input.dart';
 import 'package:ahk_editor_flutter/widgets/theme/text.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +58,7 @@ class EditableTrace extends HookConsumerWidget {
                     onSubmitted: (value) {}),
               ),
               const SizedBox(width: 8),
-              AddButton(
+              RoundedButton(
                 onPressed: () => addSoap(),
               ),
             ],

@@ -1,4 +1,4 @@
-import 'package:ahk_editor_flutter/widgets/button/add_button.dart';
+import 'package:ahk_editor_flutter/widgets/button/rounded_button.dart';
 import 'package:ahk_editor_flutter/widgets/theme/text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -162,7 +162,7 @@ class ChangeDrugHistoryProperty extends ConsumerWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              AddButton(
+              RoundedButton(
                   icon: CupertinoIcons.check_mark,
                   onPressed: () {
                     if (controller.text.isNotEmpty) {

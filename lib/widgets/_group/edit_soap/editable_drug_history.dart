@@ -1,14 +1,14 @@
-import 'package:ahk_editor_flutter/entity/soap.dart';
-import 'package:ahk_editor_flutter/provider/editing_history_provider.dart';
-import 'package:ahk_editor_flutter/widgets/button/add_button.dart';
-import 'package:ahk_editor_flutter/widgets/theme/color.dart';
-import 'package:ahk_editor_flutter/widgets/theme/input.dart';
-import 'package:ahk_editor_flutter/widgets/theme/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../entity/soap.dart';
+import '../../../provider/editing_history_provider.dart';
+import '../../button/rounded_button.dart';
 import '../../card/soap_card.dart';
+import '../../theme/color.dart';
+import '../../theme/input.dart';
+import '../../theme/text.dart';
 
 class EditableDrugHistory extends HookConsumerWidget {
   const EditableDrugHistory({
@@ -61,11 +61,14 @@ class EditableDrugHistory extends HookConsumerWidget {
                             }),
                         Text(
                           e,
-                          style: Theme.of(context).textTheme.button!.copyWith(
-                              color: kPrimaryGreen,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 20,
-                              letterSpacing: 1.4),
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelLarge!
+                              .copyWith(
+                                  color: kPrimaryGreen,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 20,
+                                  letterSpacing: 1.4),
                         )
                       ],
                     ),
@@ -90,7 +93,7 @@ class EditableDrugHistory extends HookConsumerWidget {
                     }),
               ),
               const SizedBox(width: 8),
-              AddButton(
+              RoundedButton(
                 onPressed: () => addSoap(),
               ),
             ],
