@@ -1,9 +1,3 @@
-import 'package:ahk_editor_flutter/widgets/card/head_text_card.dart';
-import 'package:ahk_editor_flutter/widgets/card/loading_setting_indicator_card.dart';
-import 'package:ahk_editor_flutter/widgets/navigation/navi_rail.dart';
-import 'package:ahk_editor_flutter/widgets/theme/color.dart';
-import 'package:ahk_editor_flutter/widgets/theme/material_theme.dart';
-import 'package:ahk_editor_flutter/widgets/theme/text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -16,8 +10,14 @@ import '../entity/drug_history.dart';
 import '../provider/editing_history_provider.dart';
 import '../provider/history_store_provider.dart';
 import '../provider/route_index_provider.dart';
+import '../widgets/card/head_text_card.dart';
+import '../widgets/card/loading_setting_indicator_card.dart';
 import '../widgets/card/mini_soap_card.dart';
 import '../widgets/dialog/success_failed_dialog.dart';
+import '../widgets/navigation/navi_rail.dart';
+import '../widgets/theme/color.dart';
+import '../widgets/theme/material_theme.dart';
+import '../widgets/theme/text.dart';
 
 class OutputScreen extends HookConsumerWidget {
   const OutputScreen({Key? key}) : super(key: key);
