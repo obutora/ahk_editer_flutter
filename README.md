@@ -28,22 +28,3 @@ SOAP/トレースを一瞬で入力し、業務不可軽減につなげましょ
    - たとえば、実行用ファイル実行を確認した後に「@bp1(スペース)」とすると musubi上に血圧の薬歴データが入力されます。
 
 
-## Entity
-
-### DrugHistory
-
-| type           | name      |
-| -------------- | --------- |
-| String         | id        |
-| List< String > | group     |
-| String         | hotString |
-| List < Soap >  | soapList  |
-
-### Soap
-
-| type   | name | detail                 |
-| ------ | ---- | ---------------------- |
-| String | soap | #, S, O, A, EP, OP, CP |
-| String | body |
-
-###
