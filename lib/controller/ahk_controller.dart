@@ -160,11 +160,15 @@ class AhkController {
   static const String ahkInputMode = '#Hotstring SI B Z O';
 
   static String ahkTail(double speed) => '''print(str)    {
-    sleep, ${(200 * speed).toInt()}
+    Clipboard = 
+    sleep, ${(60 * speed).toInt()} ;検証済み
     Clipboard = %str%
-    sleep, ${(200 * speed).toInt()}
+    ClipWait, 2
+    sleep, ${(160 * speed).toInt()}
+    send, ^v
+    sleep, ${(60 * speed).toInt()}
     send, {Enter 2}
-    sleep, ${(200 * speed).toInt()}
+    sleep, ${(60 * speed).toInt()}
     return
 }
 
