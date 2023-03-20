@@ -137,9 +137,9 @@ class AhkController {
 // ホットキーとreturnでbodyTextを挟むためのメソッド
   static String finalizeSoapString(String hotString, String body) {
     final String head = '::$hotString::';
-//     const String backupClip = '''savedClip := ClipboardAll
-// Clipboard = ''';
-//     const String restoreClip = 'Clipboard := savedClip';
+    const String backupClip = '''savedClip := ClipboardAll
+    Clipboard = ''';
+    const String restoreClip = 'Clipboard := savedClip';
 
     const String tail = 'return';
 
@@ -148,9 +148,9 @@ class AhkController {
 
     buffer.writeAll([
       head,
-      // backupClip,
+      backupClip,
       body,
-      // restoreClip,
+      restoreClip,
       tail
     ], sep);
 
