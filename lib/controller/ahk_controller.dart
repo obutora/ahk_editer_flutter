@@ -146,13 +146,7 @@ class AhkController {
     final buffer = StringBuffer();
     const sep = '\n';
 
-    buffer.writeAll([
-      head,
-      backupClip,
-      body,
-      restoreClip,
-      tail
-    ], sep);
+    buffer.writeAll([head, backupClip, body, restoreClip, tail], sep);
 
     return buffer.toString();
   }
@@ -216,6 +210,12 @@ IME_SET(SetSts, WinTitle="A")    {
     sleep, 500
     IME_SET(1)
     Send, {BS 8}
+    return
+
+;;Esc::患者リスト
+~Esc::
+    MouseClick,LEFT,480,180
+    MouseClick,LEFT,420,180
     return
 ''';
 }
