@@ -212,10 +212,18 @@ IME_SET(SetSts, WinTitle="A")    {
     Send, {BS 8}
     return
 
-;;Esc::患者リスト
+;;Esc::患者リスト（薬歴終了）⇒患者検索
 ~Esc::
-    MouseClick,LEFT,480,180
-    MouseClick,LEFT,420,180
-    return
+   MouseClick,LEFT,530,180 ;;患者一覧（患者名6～文字）
+   MouseClick,LEFT,480,180 ;;患者一覧（患者名4～5文字）
+   MouseClick,LEFT,420,180 ;;患者一覧（患者名3文字）
+   MouseClick,LEFT,370,180 ;;患者一覧（患者名2文字）    
+   sleep,200
+   MouseClick,LEFT,1400,420 ;;検索窓
+   sleep, 500
+   Send, {BS 10}
+   send, {vkF2}
+   return
+
 ''';
 }
